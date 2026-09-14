@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Termite Web · Path Workbench</title>
+<style>
+:root{--bg:#101820;--panel:#17222c;--line:#2b3945;--muted:#9caebb;--text:#edf4f5;--mint:#74e4bc;--orange:#ffbc78}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 system-ui,-apple-system,sans-serif}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}
+header{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 26px}header strong{font-size:23px;letter-spacing:-1px}header .mark{background:var(--mint);color:#16372d;font-weight:900;padding:6px 13px;border-radius:9px;font-size:23px}header small{display:block;color:var(--muted);font-size:11px;letter-spacing:1.5px}header .spacer{flex:1}.pill{font-size:11px;border:1px solid var(--line);padding:6px 10px;border-radius:20px;color:var(--orange)}
+button,.file-button{border:1px solid var(--line);background:#21313d;color:var(--text);padding:8px 12px;border-radius:6px;display:inline-block;text-align:center}button:hover,.file-button:hover{background:#2c4351}button.primary{background:var(--mint);color:#153b30;border:0;font-weight:650}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+.layout{display:grid;grid-template-columns:280px minmax(320px,1fr) 260px;min-height:calc(100vh - 111px)}aside{background:var(--panel);padding:22px 18px;border-right:1px solid var(--line)}aside.right{border-right:0;border-left:1px solid var(--line)}h2{font-size:11px;text-transform:uppercase;letter-spacing:1.6px;color:var(--muted);margin:0 0 12px}h3{font-size:14px;margin:0 0 10px}section{margin-bottom:24px}label{display:block;font-size:12px;color:var(--muted);margin:10px 0 4px}input,select{color:var(--text);background:#0f1a23;border:1px solid var(--line);padding:8px;border-radius:5px;width:100%}input[type=checkbox]{width:auto}input[type=range]{padding:0;accent-color:var(--mint)}.row{display:flex;gap:8px}.row>*{flex:1;min-width:0}.full{width:100%;margin-top:12px}.note{font-size:12px;color:var(--muted)}.warn{color:var(--orange)}.viewport{position:relative;min-height:570px;background:radial-gradient(ellipse at 50% 45%,#21343e 0,#101a23 75%)}canvas{display:block;width:100%;height:100%;position:absolute;inset:0;touch-action:none}.view-top{position:absolute;top:18px;left:18px;right:18px;display:flex;gap:8px;align-items:center;pointer-events:none}.view-top button{pointer-events:auto;font-size:12px;background:#16242dde}.view-top .grow{flex:1}.view-bottom{position:absolute;bottom:18px;left:20px;color:var(--muted);font-size:11px;pointer-events:none}.badge{background:#17262fdd;border:1px solid var(--line);padding:6px 9px;border-radius:5px;font-size:11px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:14px}.stat strong{display:block;font-size:22px;font-weight:500}.stat span{color:var(--muted);font-size:11px}.stat.wide{grid-column:1/-1}#paths{max-height:230px;overflow:auto}#paths button{width:100%;display:flex;justify-content:space-between;margin:3px 0;font-size:11px;padding:6px 8px}#paths button.selected{border-color:var(--mint);color:var(--mint)}#status{border-top:1px solid var(--line);padding:8px 20px;font-size:12px;color:var(--muted);min-height:35px}#status.error{color:#ffb3a7}details{font-size:12px;color:var(--muted);margin-top:10px}summary{cursor:pointer;color:var(--text)}dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;width:min(850px,95vw);max-height:85vh;padding:24px}dialog::backdrop{background:#0009}table{border-collapse:collapse;width:100%;font-size:12px}td,th{padding:9px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--muted)}.dialog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.dialog-head h3{margin:0}#operation-help{min-height:46px}#history{font-size:11px;max-height:110px;overflow:auto;color:var(--muted)}.hidden{display:none!important}
+@media(max-width:1100px){.layout{grid-template-columns:250px 1fr}.right{grid-column:1/-1;display:flex;gap:28px;flex-wrap:wrap}.right section{flex:1;min-width:180px}.viewport{min-height:600px}}
+@media(max-width:650px){header{height:auto;padding:16px;flex-wrap:wrap}.layout{display:flex;flex-direction:column}.viewport{order:-1;height:420px;min-height:420px}aside{border-bottom:1px solid var(--line)}header .pill{display:none}.right{display:block}.view-top{flex-wrap:wrap}button{padding:8px}}
+</style></head><body>
+<header><span class="mark">t</span><div><strong>termite / web</strong><small>PATH WORKBENCH</small></div><span class="spacer"></span><span class="pill">v0.1 · polyline development build</span><button id="coverage">Feature coverage</button><button id="help">File formats</button></header>
+<div class="layout">
+<aside>
+<section><h2>01 / Geometry</h2><h3 id="project-name">Sculpted vessel</h3>
+<p class="note">Import paths as JSON or CSV. Coordinates are in millimetres. Files stay in this browser.</p>
+<label class="file-button full" for="file">Import paths / project</label><input type="file" id="file" accept=".json,.csv" class="hidden">
+<button id="demo" class="full">Load sample vessel</button>
+</section>
+<section><h2>02 / Operation</h2>
+<label for="operation">Path tool</label><select id="operation">
+<option value="length">Sort by length</option><option value="axis">Sort along axis</option><option value="distance">Sort by distance</option><option value="travel">Optimize travel order</option><option value="filter">Remove short paths</option><option value="reverse">Reverse each path</option><option value="alternate">Alternate layer directions</option><option value="seam">Shift closed-path seams</option><option value="stack">Stack copies</option><option value="spiral">Spiral between stacked paths</option>
+</select>
+<p id="operation-help" class="note"></p>
+<div id="fields"></div><button id="apply" class="primary full">Apply to all paths</button>
+<div class="row" style="margin-top:8px"><button id="undo">Undo</button><button id="reset">Reset geometry</button></div>
+</section>
+<section><h2>03 / Export</h2><div class="row"><button id="export-json">Path JSON</button><button id="export-csv">Path CSV</button></div><button id="save-project" class="full">Save project</button>
+<p class="note warn">G-code export is not available in this build. The original generator’s printer and extrusion rules are still being ported.</p></section>
+<details><summary>Operation history</summary><ol id="history"></ol></details>
+</aside>
+<main class="viewport"><canvas id="canvas" aria-label="Interactive 3D polyline preview. Drag to rotate, shift-drag to pan, scroll to zoom." tabindex="0"></canvas>
+<div class="view-top"><span class="badge">3D PATH VIEW</span><span class="grow"></span><button id="iso">Iso</button><button id="top">Top</button><button id="front">Front</button><button id="fit">Fit</button></div>
+<div class="view-bottom">Drag to orbit · Shift-drag to pan · Scroll to zoom<br>Green: print paths · Orange dashed: travel · White: selected path</div></main>
+<aside class="right">
+<section><h2>Path information</h2><div class="stats"><div class="stat"><strong id="npaths">0</strong><span>PATHS</span></div><div class="stat"><strong id="npoints">0</strong><span>POINTS</span></div><div class="stat wide"><strong id="print-length">0</strong><span>PATH LENGTH / MM</span></div><div class="stat wide"><strong id="travel-length">0</strong><span>TRAVEL DISTANCE / MM</span></div></div><p id="dimensions" class="note"></p></section>
+<section><h2>Preview</h2><label><input id="show-travel" type="checkbox" checked> Show travel moves</label><label><input id="show-starts" type="checkbox"> Show path starts</label><label for="progress">Path playback <span id="progress-label">100%</span></label><input id="progress" type="range" min="0" max="100" value="100"><button id="play" class="full">Play path sequence</button><p class="note">Playback shows sequence, not printer timing or extrusion physics.</p></section>
+<section><h2>Paths / select to highlight</h2><div id="paths"></div><p id="path-limit" class="note"></p></section>
+</aside></div><div id="status" role="status" aria-live="polite">Ready.</div>
+<dialog id="coverage-dialog"><div class="dialog-head"><h3>Termite 1.4 — port coverage</h3><button data-close>Close</button></div><p class="note">This development build is not a complete Termite replacement. Polylines are supported; Rhino NURBS curves, surfaces, data trees and printer profiles are not yet reproduced. No original-versus-web output validation has been completed.</p><table><thead><tr><th>Original component</th><th>Current implementation</th></tr></thead><tbody id="coverage-body"></tbody></table></dialog>
+<dialog id="help-dialog"><div class="dialog-head"><h3>Importing your paths</h3><button data-close>Close</button></div><p>JSON accepts an array of paths or an object with a <code>paths</code> array. Every point contains X, Y and Z in millimetres.</p><pre style="white-space:pre-wrap">{"paths":[{"id":"path-1","layer":"Default","points":[[0,0,0],[30,0,0],[30,20,0]]}]}</pre><p>CSV format (one row per point, rows grouped by path identifier):</p><pre>path,x,y,z,layer
+1,0,0,0,Default
+1,30,0,0,Default
+1,30,20,0,Default</pre><p class="note">Use simple unquoted CSV fields. JSON preserves layer names without CSV restrictions. Supported layers are labels only in this build; no extrusion values are inferred. Rhino .3dm, STL and Grasshopper files cannot be imported here yet.</p><p class="note">Save project records both the input and current geometry. Operations affect all paths; selecting a path only highlights it. Maximum import: 20 MB / 200,000 points. Travel optimization: 250 paths.</p></dialog>
+<script>
+/* Termite Web Workbench — independent polyline implementation.
+Original Termite: Julian Jauk. See recovery/README.md.
+No claim of Rhino/Grasshopper numerical equivalence. */
+const TermiteCore = (() => {
+"use strict";
+const EPS=1e-9;
+const distance=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1],a[2]-b[2]);
+const clone=p=>({...p,points:p.points.map(q=>q.slice())});
+const length=p=>p.points.slice(1).reduce((s,q,i)=>s+distance(p.points[i],q),0);
+function validate(input){
+ const raw=Array.isArray(input)?input:input.paths;
+ if(!Array.isArray(raw)||!raw.length)throw Error("Provide a non-empty paths array.");
+ if(raw.length>10000)throw Error("Maximum 10,000 paths.");
+ let count=0;
+ const paths=raw.map((p,i)=>{
+  const pts=Array.isArray(p)?p:p.points;
+  if(!Array.isArray(pts)||!pts.length)throw Error("Path "+(i+1)+" has no points.");
+  count+=pts.length;if(count>200000)throw Error("Maximum 200,000 points.");
+  const points=pts.map(q=>{
+   if(!Array.isArray(q)||q.length<2||q.length>3||q.some(v=>typeof v!=="number"||!Number.isFinite(v)||Math.abs(v)>1e7))
+    throw Error("Coordinates must be finite numeric [x,y] or [x,y,z] arrays.");
+   return [q[0],q[1],q.length===3?q[2]:0];
+  });
+  return {id:String(p.id??i+1),layer:String(p.layer??"Default"),points};
+ });
+ return paths;
+}
+function pointAt(p,d){
+ const pts=p.points,L=length(p);
+ if(pts.length===1||L<EPS)return pts[0].slice();
+ if(d<=0)return pts[0].slice();if(d>=L)return pts.at(-1).slice();
+ let acc=0;
+ for(let i=1;i<pts.length;i++){const seg=distance(pts[i-1],pts[i]);if(seg>EPS&&acc+seg>=d){
+ const t=(d-acc)/seg;return pts[i].map((v,k)=>pts[i-1][k]+t*(v-pts[i-1][k]));}acc+=seg;}
+ return pts.at(-1).slice();
+}
+function centroid(p){ // Vertex mean, explicitly used by the workbench axis/distance tools.
+ const pts=p.points.length>1&&distance(p.points[0],p.points.at(-1))<EPS?p.points.slice(0,-1):p.points;
+ return [0,1,2].map(k=>pts.reduce((s,q)=>s+q[k],0)/pts.length);
+}
+function bounds(paths){
+ const min=[Infinity,Infinity,Infinity],max=[-Infinity,-Infinity,-Infinity];
+ paths.forEach(p=>p.points.forEach(q=>q.forEach((v,k)=>{min[k]=Math.min(min[k],v);max[k]=Math.max(max[k],v)})));
+ return {min,max};
+}
+function travelLength(paths){let n=0;for(let i=1;i<paths.length;i++)n+=distance(paths[i-1].points.at(-1),paths[i].points[0]);return n;}
+function sortLength(paths,descending=false){
+ const out=paths.map(clone).sort((a,b)=>length(a)-length(b));return descending?out.reverse():out;
+}
+function sortAxis(paths,axis=2,descending=false){
+ const out=paths.map(clone).sort((a,b)=>centroid(a)[axis]-centroid(b)[axis]);return descending?out.reverse():out;
+}
+function sortDistance(paths,origin=[0,0,0],descending=false){
+ const out=paths.map(clone).sort((a,b)=>distance(centroid(a),origin)-distance(centroid(b),origin));return descending?out.reverse():out;
+}
+function filterLength(paths,min){
+ if(!Number.isFinite(min)||min<0)throw Error("Minimum length must be non-negative.");
+ return paths.filter(p=>length(p)>min).map(clone);
+}
+function reversePaths(paths){return paths.map(p=>({...clone(p),points:p.points.slice().reverse().map(q=>q.slice())}));}
+function alternate(paths,axis=2,resolution=.001){
+ if(!(resolution>0))throw Error("Layer resolution must be positive.");
+ const sorted=sortAxis(paths,axis);let prev=null,layer=-1;
+ return sorted.map(p=>{const key=Math.round(centroid(p)[axis]/resolution);
+ if(key!==prev){layer++;prev=key;}return layer%2?reversePaths([p])[0]:p;});
+}
+function shiftSeams(paths,fraction){
+ if(!Number.isFinite(fraction))throw Error("Seam fraction must be finite.");
+ return paths.map(p=>{
+ const q=clone(p);if(q.points.length<3||distance(q.points[0],q.points.at(-1))>EPS)throw Error("Seam shifting requires closed polylines.");
+ const L=length(q),d=((fraction%1)+1)%1*L;if(d<EPS||L<EPS)return q;
+ let acc=0;
+ for(let i=1;i<q.points.length;i++){const seg=distance(q.points[i-1],q.points[i]);if(acc+seg>=d&&seg>EPS){
+ const start=pointAt(q,d);const middle=q.points.slice(i).concat(q.points.slice(1,i));
+ return {...q,points:[start,...middle,start.slice()].filter((v,j,a)=>j===0||distance(v,a[j-1])>EPS)};
+ }acc+=seg;}return q;
+ });
+}
+function stack(paths,count,step){
+ if(!Number.isInteger(count)||count<1||count>1000||!Number.isFinite(step)||step<=0)throw Error("Use 1–1000 layers and positive layer height.");
+ if(paths.reduce((s,p)=>s+p.points.length,0)*count>200000)throw Error("Stack exceeds 200,000 points.");
+ const out=[];for(let i=0;i<count;i++)for(const p of paths)out.push({...p,id:p.id+"-L"+i,points:p.points.map(q=>[q[0],q[1],q[2]+i*step])});return out;
+}
+function spiralStack(paths,samples=100){
+ if(paths.length<2)throw Error("Select at least two stacked closed paths.");
+ if(!Number.isInteger(samples)||samples<4||samples>2000)throw Error("Samples must be 4–2000.");
+ if(paths.length*samples>200000)throw Error("Spiral exceeds 200,000 points.");
+ const sorted=sortAxis(paths,2);
+ if(sorted.some(p=>distance(p.points[0],p.points.at(-1))>EPS))throw Error("Spiral inputs must be closed.");
+ const points=[];
+ for(let i=0;i<sorted.length-1;i++){
+ const a=sorted[i],b=sorted[i+1],la=length(a),lb=length(b);
+ for(let j=0;j<samples;j++){const t=j/samples,pa=pointAt(a,t*la),pb=pointAt(b,t*lb);points.push(pa.map((v,k)=>v+(pb[k]-v)*t));}
+ }points.push(sorted.at(-1).points[0].slice());
+ return [{id:"spiral",layer:sorted[0].layer,points}];
+}
+// Legacy seeded System.Random sequence used by the recovered C# script.
+function dotNetRandom(seed=1){
+ const a=Array(56).fill(0),M=2147483647;let mj=161803398-Math.abs(seed),mk=1;a[55]=mj;
+ for(let i=1;i<55;i++){let ii=21*i%55;a[ii]=mk;mk=mj-mk;if(mk<0)mk+=M;mj=a[ii];}
+ for(let k=1;k<5;k++)for(let i=1;i<56;i++){a[i]-=a[1+(i+30)%55];if(a[i]<0)a[i]+=M;}
+ let x=0,y=21;return ()=>{if(++x>=56)x=1;if(++y>=56)y=1;let r=a[x]-a[y];if(r===M)r--;if(r<0)r+=M;a[x]=r;return r/M;};
+}
+// Port of recovery/scripts/termite-sort-by-travel-path/02-object-80.cs.
+// Retains original endpoint and 2-opt behaviour, including its limitations.
+function sortTravel(paths,{subdivisions=8,iterations=10,flip=true}={}){
+ if(!paths.length)return [];
+ if(paths.length>250)throw Error("Travel optimization is limited to 250 paths in this version.");
+ const S=Math.max(2,Math.trunc(subdivisions)),I=Math.max(1,Math.min(100,Math.trunc(iterations)));
+ if(!Number.isFinite(S)||!Number.isFinite(I))throw Error("Invalid optimization settings.");
+ const pts=paths.map(p=>pointAt(p,length(p)/2)),bb=bounds([{points:pts}]);
+ const dx=Math.max(1e-6,(bb.max[0]-bb.min[0])/S),dy=Math.max(1e-6,(bb.max[1]-bb.min[1])/S);
+ const clusters=new Map();
+ pts.forEach((p,i)=>{const gx=Math.trunc((p[0]-bb.min[0])/dx),gy=Math.trunc((p[1]-bb.min[1])/dy),key=Math.imul(gx,73856093)^Math.imul(gy,19349663);
+ if(!clusters.has(key))clusters.set(key,[]);clusters.get(key).push(i);});
+ const random=dotNetRandom(1);let bestCost=Infinity,bestOrder=[];
+ for(let it=0;it<I;it++){
+ const keys=[...clusters.keys()];for(let i=0;i<keys.length;i++){const j=i+Math.floor(random()*(keys.length-i));[keys[i],keys[j]]=[keys[j],keys[i]];}
+ const order=[];let end=null;
+ for(const key of keys){const ids=clusters.get(key).slice();
+ while(ids.length){let best=Infinity,idx=0,rev=false;
+ for(let i=0;i<ids.length;i++){const c=paths[ids[i]];if(end===null){idx=i;rev=false;break;}
+ const d1=distance(end,c.points[0]),d2=distance(end,c.points.at(-1));
+ if(d1<best){best=d1;idx=i;rev=false;}if(d2<best){best=d2;idx=i;rev=true;}}
+ const c=clone(paths[ids.splice(idx,1)[0]]);if(flip&&rev)c.points.reverse();order.push(c);end=c.points.at(-1);
+ }}
+ let improved=true,guard=0;
+ while(improved&&guard<20){improved=false;guard++;
+ for(let i=0;i<order.length-1;i++)for(let j=i+1;j<order.length;j++){
+ const prev=i?order[i-1]:null,a=order[i],b=order[j],next=j<order.length-1?order[j+1]:null;
+ const before=(prev?distance(prev.points.at(-1),a.points[0]):0)+distance(a.points.at(-1),b.points[0])+(next?distance(b.points.at(-1),next.points[0]):0);
+ const after=(prev?distance(prev.points.at(-1),b.points.at(-1)):0)+distance(b.points[0],a.points.at(-1))+(next?distance(a.points[0],next.points[0]):0);
+ if(after<before){order.splice(i,j-i+1,...order.slice(i,j+1).reverse());improved=true;}
+ }}
+ const cost=travelLength(order);if(cost<bestCost){bestCost=cost;bestOrder=order;}
+ }return bestOrder;
+}
+function parseCSV(text){
+ const lines=text.trim().split(/\r?\n/).filter(s=>s.trim());
+ if(!lines.length)throw Error("CSV is empty.");
+ const header=lines.shift().trim().toLowerCase().split(",").map(s=>s.trim());
+ for(const name of ["path","x","y","z"])if(!header.includes(name))throw Error("CSV needs path,x,y,z headers; layer is optional.");
+ const groups=new Map();
+ for(let i=0;i<lines.length;i++){const fields=lines[i].split(",").map(s=>s.trim()),get=k=>fields[header.indexOf(k)];
+ if(fields.length!==header.length)throw Error("CSV field count mismatch on row "+(i+2));
+ if(!get("path")||["x","y","z"].some(k=>get(k)===""))throw Error("Missing CSV value on row "+(i+2));
+ const id=get("path"),layer=header.includes("layer")?get("layer"):"Default";
+ if(!groups.has(id))groups.set(id,{id,layer,points:[]});
+ if(groups.get(id).layer!==layer)throw Error("Each path must have one layer.");
+ groups.get(id).points.push(["x","y","z"].map(k=>Number(get(k))));
+ }return validate([...groups.values()]);
+}
+function csv(paths){return "path,x,y,z,layer\n"+paths.flatMap((p,i)=>p.points.map(q=>[i,...q,p.layer.replace(/[,\r\n"]/g,"_")].join(","))).join("\n");}
+function sample(){
+ return Array.from({length:24},(_,k)=>({id:String(k+1),layer:"Default",points:Array.from({length:97},(_,j)=>{
+ const t=j/96*Math.PI*2,r=32+5*Math.sin(k/23*Math.PI)+2*Math.sin(t*6+k*.13);
+ return [r*Math.cos(t),r*Math.sin(t),k*1.5];})}));
+}
+return {distance,length,pointAt,centroid,bounds,travelLength,validate,sortLength,sortAxis,sortDistance,filterLength,reversePaths,alternate,shiftSeams,stack,spiralStack,sortTravel,dotNetRandom,parseCSV,csv,sample};
+})();
+if(typeof module!=="undefined")module.exports=TermiteCore;
+</script><script>
+"use strict";
+const C=TermiteCore,$=id=>document.getElementById(id);
+let paths=C.validate(C.sample()),original=structuredClone(paths),undo=[],history=[],selected=null,playing=false,playLast=0;
+let camera={yaw:-.65,pitch:.95,zoom:1,pan:[0,0]},drag=null,drawPending=false;
+const canvas=$("canvas"),ctx=canvas.getContext("2d");
+const tips={
+length:"Sort polylines by total arc length. Equal lengths retain input order in ascending mode.",
+axis:"Sort by polyline vertex centroid. This is a workbench approximation of Termite’s curve handling.",
+distance:"Sort by distance from a reference point to each polyline’s vertex centroid.",
+travel:"Port of Termite’s clustered C# algorithm. Includes original flip and 2-opt behaviour; Rhino parity remains unverified.",
+filter:"Keep paths strictly longer than the minimum. Equality is excluded.",
+reverse:"Reverse the point order within every path.",
+alternate:"Group by rounded centroid position and reverse every second layer. Polyline adaptation.",
+seam:"Move the seam by a fixed fraction of arc length. Requires closed paths; random and attractor modes are pending.",
+stack:"Create translated copies along Z. This utility is not a port of Create Wall.",
+spiral:"Interpolate between successive closed polylines. Align seams first. This is an approximate preview, not the original surface slicer."
+};
+function status(s,error=false){$("status").textContent=s;$("status").classList.toggle("error",error);}
+function numField(id,label,value,min,max,step){
+ const l=document.createElement("label");l.htmlFor=id;l.textContent=label;
+ const input=document.createElement("input");input.id=id;input.type="number";input.value=value;
+ if(min!==undefined)input.min=min;if(max!==undefined)input.max=max;input.step=step??"any";
+ $("fields").append(l,input);
+}
+function selectField(id,label,options){const l=document.createElement("label");l.htmlFor=id;l.textContent=label;const s=document.createElement("select");s.id=id;for(const [v,t] of options){const o=document.createElement("option");o.value=v;o.textContent=t;s.append(o);}$("fields").append(l,s);}
+function fields(){
+ const op=$("operation").value;$("fields").replaceChildren();$("operation-help").textContent=tips[op];
+ if(["length","axis","distance"].includes(op))selectField("descending","Ordering",[["0","Ascending"],["1","Descending"]]);
+ if(["axis","alternate"].includes(op))selectField("axis","Axis",[["2","Z"],["0","X"],["1","Y"]]);
+ if(op==="distance")for(const k of ["x","y","z"])numField("origin-"+k,"Reference "+k.toUpperCase(),0);
+ if(op==="travel"){numField("iterations","Iterations",10,1,100,1);numField("subdivisions","XY grid subdivisions",8,2,100,1);selectField("flip","Allow path flipping",[["1","Yes"],["0","No"]]);}
+ if(op==="filter")numField("minimum","Minimum length / mm",1,0);
+ if(op==="alternate")numField("resolution","Layer grouping resolution / mm",.001,.000001);
+ if(op==="seam")numField("fraction","Seam shift / fraction of path",.25,0,1,.01);
+ if(op==="stack"){numField("layers","Number of copies",10,1,1000,1);numField("height","Layer height / mm",1.5,.001);}
+ if(op==="spiral")numField("samples","Samples per turn",100,4,2000,1);
+}
+function number(id){const e=$(id);if(!e||e.value.trim()===""||!e.checkValidity())throw Error("Check "+(e?.previousElementSibling?.textContent||id)+".");const n=Number(e.value);if(!Number.isFinite(n))throw Error("Invalid number.");return n;}
+function stop(){playing=false;$("play").textContent="Play path sequence";}
+function commit(next,label){if(!next.length)throw Error("This operation removes all paths. Lower the threshold.");next=C.validate(next);stop();undo.push({paths,history:history.slice()});if(undo.length>8)undo.shift();paths=next;history.push(label);selected=null;$("progress").value=100;update();status(label+" · "+paths.length+" paths.");}
+$("apply").onclick=async ()=>{
+ const before=paths;$("apply").disabled=true;
+ try{const op=$("operation").value;let next;
+ if(op==="length")next=C.sortLength(paths,number("descending")===1);
+ if(op==="axis")next=C.sortAxis(paths,number("axis"),number("descending")===1);
+ if(op==="distance")next=C.sortDistance(paths,["x","y","z"].map(k=>number("origin-"+k)),number("descending")===1);
+ if(op==="travel"){
+ const options={iterations:number("iterations"),subdivisions:number("subdivisions"),flip:number("flip")===1};
+ status("Optimizing travel order…");
+ next=await new Promise((resolve,reject)=>{
+ const source=document.querySelector("script").textContent+
+ "\nself.onmessage=e=>{try{self.postMessage({paths:TermiteCore.sortTravel(e.data.paths,e.data.options)});}catch(error){self.postMessage({error:error.message});}};";
+ const url=URL.createObjectURL(new Blob([source],{type:"text/javascript"}));
+ let worker;try{worker=new Worker(url);}catch(e){URL.revokeObjectURL(url);reject(e);return;}
+ const clean=()=>{clearTimeout(timer);worker.terminate();URL.revokeObjectURL(url);};
+ const timer=setTimeout(()=>{clean();reject(Error("Optimization exceeded 45 seconds. Reduce iterations or path count."));},45000);
+ worker.onmessage=e=>{clean();if(e.data.error)reject(Error(e.data.error));else resolve(e.data.paths);};
+ worker.onerror=e=>{clean();reject(Error(e.message||"Optimization worker failed."));};
+ worker.postMessage({paths:before,options});
+ });
+ if(paths!==before)throw Error("Geometry changed during optimization; result discarded.");
+}
+ if(op==="filter")next=C.filterLength(paths,number("minimum"));
+ if(op==="reverse")next=C.reversePaths(paths);
+ if(op==="alternate")next=C.alternate(paths,number("axis"),number("resolution"));
+ if(op==="seam")next=C.shiftSeams(paths,number("fraction"));
+ if(op==="stack")next=C.stack(paths,number("layers"),number("height"));
+ if(op==="spiral")next=C.spiralStack(paths,number("samples"));
+ const settings=[...$("fields").querySelectorAll("input,select")].map(e=>e.id+"="+e.value).join(", ");
+ commit(next,$("operation").selectedOptions[0].text+(settings?" ("+settings+")":""));
+ }catch(e){status(e.message,true);}finally{$("apply").disabled=false;}
+};
+$("operation").onchange=fields;
+$("undo").onclick=()=>{const s=undo.pop();if(!s)return;stop();paths=s.paths;history=s.history;selected=null;update();status("Undid last operation.");};
+$("reset").onclick=()=>{try{commit(original,"Reset to imported geometry");fit();}catch(e){status(e.message,true);}};
+function loadPaths(next,name,base=next,log=[]){const checked=C.validate(next),checkedOriginal=C.validate(base);stop();paths=checked;original=checkedOriginal;undo=[];history=log.filter(x=>typeof x==="string").slice(-200);selected=null;$("project-name").textContent=name.slice(0,100);$("progress").value=100;update();fit();}
+$("demo").onclick=()=>{loadPaths(C.sample(),"Sculpted vessel");status("Loaded sample vessel.");};
+$("file").onchange=async e=>{
+ const f=e.target.files[0];if(!f)return;
+ try{if(f.size>20*1024*1024)throw Error("File exceeds 20 MB.");const text=await f.text();
+ if(f.name.toLowerCase().endsWith(".csv"))loadPaths(C.parseCSV(text),f.name);
+ else{const data=JSON.parse(text);
+ if(data.format==="termite-web-project-v1")loadPaths(data.paths,String(data.name||f.name),data.original||data.paths,Array.isArray(data.history)?data.history:[]);
+ else loadPaths(C.validate(data),f.name);}
+ status("Imported "+f.name+".");
+ }catch(err){status("Import failed: "+err.message,true);}finally{e.target.value="";}
+};
+function download(name,text,type="application/json"){
+ const url=URL.createObjectURL(new Blob([text],{type})),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+$("export-json").onclick=()=>download("termite-paths.json",JSON.stringify({units:"mm",paths},null,2));
+$("export-csv").onclick=()=>{download("termite-paths.csv",C.csv(paths),"text/csv");status("Exported CSV. Path IDs are sequential; layer commas/newlines are replaced. JSON preserves original labels.");};
+$("save-project").onclick=()=>download("termite-project.json",JSON.stringify({format:"termite-web-project-v1",name:$("project-name").textContent,units:"mm",original,paths,history},null,2));
+function fmt(n){return n.toLocaleString(undefined,{maximumFractionDigits:1});}
+function update(){
+ $("npaths").textContent=fmt(paths.length);$("npoints").textContent=fmt(paths.reduce((s,p)=>s+p.points.length,0));
+ $("print-length").textContent=fmt(paths.reduce((s,p)=>s+C.length(p),0));$("travel-length").textContent=fmt(C.travelLength(paths));
+ const b=C.bounds(paths);$("dimensions").textContent=b.max.map((v,k)=>fmt(v-b.min[k])).join(" × ")+" mm / X · Y · Z";
+ $("undo").disabled=!undo.length;$("paths").replaceChildren();
+ paths.slice(0,200).forEach((p,i)=>{const btn=document.createElement("button");const a=document.createElement("span"),b=document.createElement("span");a.textContent=(i+1)+" · "+p.id.slice(0,18);b.textContent=fmt(C.length(p))+" mm";btn.append(a,b);btn.classList.toggle("selected",selected===i);btn.onclick=()=>{selected=selected===i?null:i;update();};$("paths").append(btn);});
+ $("path-limit").textContent=paths.length>200?"Showing first 200 paths. All paths are included in operations and exports.":"";
+ $("history").replaceChildren();for(const h of history){const li=document.createElement("li");li.textContent=h;$("history").append(li);}
+ scheduleDraw();
+}
+function fit(){camera.zoom=1;camera.pan=[0,0];scheduleDraw();}
+function scheduleDraw(){if(!drawPending){drawPending=true;requestAnimationFrame(()=>{drawPending=false;draw();});}}
+function draw(){
+ const w=canvas.clientWidth,h=canvas.clientHeight,dpr=Math.min(devicePixelRatio||1,2);
+ if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
+ ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+ const b=C.bounds(paths),center=b.min.map((v,k)=>(v+b.max[k])/2),extent=Math.max(...b.max.map((v,k)=>v-b.min[k]),1);
+ const scale=Math.min(w,h)*.6/extent*camera.zoom,cy=Math.cos(camera.yaw),sy=Math.sin(camera.yaw),cp=Math.cos(camera.pitch),sp=Math.sin(camera.pitch);
+ function project(q){const x=q[0]-center[0],y=q[1]-center[1],z=q[2]-center[2];const rx=x*cy-y*sy,ry=x*sy+y*cy;return [w/2+camera.pan[0]+rx*scale,h/2+camera.pan[1]-(ry*cp+z*sp)*scale];}
+ function line(points,color,width=1,dash=[]){ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);points.forEach((q,i)=>{const [x,y]=project(q);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});ctx.stroke();}
+ const grid=Math.pow(10,Math.floor(Math.log10(extent/5))),radius=Math.ceil(extent/grid)*grid;
+ for(let v=-radius;v<=radius;v+=grid){line([[center[0]+v,center[1]-radius,0],[center[0]+v,center[1]+radius,0]],"#30434e",.6);line([[center[0]-radius,center[1]+v,0],[center[0]+radius,center[1]+v,0]],"#30434e",.6);}
+ const fraction=Number($("progress").value)/100;let remaining=paths.reduce((s,p)=>s+Math.max(1,p.points.length-1),0)*fraction;
+ const colors={Default:"#74e4bc",Slow:"#85baff",Fast:"#d6a0ff",Travel:"#ffbc78"};
+ let prev=null;
+ for(let i=0;i<paths.length&&remaining>0;i++){
+ const p=paths[i],segs=Math.max(1,p.points.length-1),portion=Math.min(remaining,segs),whole=Math.floor(portion),part=portion-whole;
+ const visible=p.points.slice(0,whole+1);if(part>0&&whole+1<p.points.length)visible.push(p.points[whole].map((v,k)=>v+(p.points[whole+1][k]-v)*part));
+ if(prev&&$("show-travel").checked)line([prev,p.points[0]],"#ffbc7870",1,[4,5]);
+ if(visible.length>1)line(visible,i===selected?"#fff":colors[p.layer]||"#74e4bc",i===selected?3:1.4);
+ if($("show-starts").checked||visible.length===1){const [x,y]=project(p.points[0]);ctx.setLineDash([]);ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(x,y,2,0,Math.PI*2);ctx.fill();}
+ prev=p.points.at(-1);remaining-=segs;
+ }
+ ctx.setLineDash([]);const [ox,oy]=project([0,0,0]);ctx.fillStyle="#94a7b5";ctx.font="10px system-ui";ctx.fillText("0",ox+4,oy+12);
+ $("progress-label").textContent=Math.round(fraction*100)+"%";
+}
+canvas.onpointerdown=e=>{canvas.setPointerCapture(e.pointerId);drag={x:e.clientX,y:e.clientY,pan:e.shiftKey||e.button===2};};
+canvas.onpointermove=e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(drag.pan){camera.pan[0]+=dx;camera.pan[1]+=dy;}else{camera.yaw+=dx*.008;camera.pitch=Math.max(.02,Math.min(Math.PI-.02,camera.pitch+dy*.008));}drag.x=e.clientX;drag.y=e.clientY;scheduleDraw();};
+canvas.onpointerup=canvas.onpointercancel=()=>drag=null;canvas.oncontextmenu=e=>e.preventDefault();
+canvas.addEventListener("wheel",e=>{e.preventDefault();camera.zoom=Math.max(.1,Math.min(20,camera.zoom*Math.exp(-e.deltaY*.001)));scheduleDraw();},{passive:false});
+canvas.onkeydown=e=>{if(e.key==="ArrowLeft")camera.yaw-=.1;else if(e.key==="ArrowRight")camera.yaw+=.1;else if(e.key==="+")camera.zoom=Math.min(20,camera.zoom*1.1);else if(e.key==="-")camera.zoom=Math.max(.1,camera.zoom/1.1);else return;e.preventDefault();scheduleDraw();};
+$("iso").onclick=()=>{camera.yaw=-.65;camera.pitch=.95;fit();};$("top").onclick=()=>{camera.yaw=0;camera.pitch=.02;fit();};$("front").onclick=()=>{camera.yaw=0;camera.pitch=Math.PI/2;fit();};$("fit").onclick=fit;
+for(const id of ["show-travel","show-starts","progress"])$(id).oninput=scheduleDraw;
+$("play").onclick=()=>{if(playing){stop();return;}playing=true;$("progress").value=0;playLast=performance.now();$("play").textContent="Pause";
+function frame(now){if(!playing)return;const n=Number($("progress").value)+(now-playLast)/120;playLast=now;$("progress").value=Math.min(100,n);draw();if(n>=100)stop();else requestAnimationFrame(frame);}requestAnimationFrame(frame);};
+$("progress").step=".01";
+new ResizeObserver(scheduleDraw).observe(canvas);
+const coverage=[{"name":"Termite Create Alternated Layers","status":"Polyline adaptation; layer grouping parity pending."},{"name":"Termite Create Base","status":"Not implemented in this build."},{"name":"Termite Create Shifted Ends","status":"Not implemented in this build."},{"name":"Termite Create Shifted Seams","status":"Fixed-fraction utility only; attractor and random modes pending."},{"name":"Termite Create Sling Contours","status":"Not implemented in this build."},{"name":"Termite Create Spiral from Curve","status":"Not implemented in this build."},{"name":"Termite Create Spiral from Stacked Layers","status":"Polyline interpolation preview; original algorithm pending."},{"name":"Termite Create Spiral from Surface","status":"Not implemented in this build."},{"name":"Termite Create Stair Contours","status":"Not implemented in this build."},{"name":"Termite Create Wall","status":"Not implemented in this build."},{"name":"Termite Display Clipping Planes","status":"Not implemented in this build."},{"name":"Termite Display G-code","status":"Not implemented in this build."},{"name":"Termite Display Simulation","status":"Not implemented in this build."},{"name":"Termite Main G-code Generator","status":"Not implemented in this build."},{"name":"Termite Sort Along Axis","status":"Vertex-centroid approximation; grouping and secondary axis pending."},{"name":"Termite Sort Along Curve","status":"Not implemented in this build."},{"name":"Termite Sort by Distance","status":"Vertex-centroid approximation; Rhino curve conversion pending."},{"name":"Termite Sort by Length","status":"Implemented for polylines; Rhino output comparison pending."},{"name":"Termite Sort by Travel Path","status":"Recovered C# script ported for polylines. Original cluster selection wiring / Rhino parity pending."},{"name":"Termite Sort Out by Length","status":"Strict minimum-length filter for polylines; full graph parity pending."}];
+for(const item of coverage){const tr=document.createElement("tr");for(const value of [item.name,item.status]){const td=document.createElement("td");td.textContent=value;tr.append(td);}$("coverage-body").append(tr);}
+$("coverage").onclick=()=>$("coverage-dialog").showModal();$("help").onclick=()=>$("help-dialog").showModal();
+for(const b of document.querySelectorAll("[data-close]"))b.onclick=()=>b.closest("dialog").close();
+fields();update();
+</script></body></html>

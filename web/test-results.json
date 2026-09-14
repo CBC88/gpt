@@ -1,0 +1,80 @@
+{
+  "environment": "JavaScript V8 through functions.exec; no DOM or Rhino runtime",
+  "results": [
+    {
+      "name": "3D length and arc-length interpolation",
+      "passed": true
+    },
+    {
+      "name": "Repeated vertices do not break interpolation",
+      "passed": true
+    },
+    {
+      "name": "Single-point path interpolation",
+      "passed": true
+    },
+    {
+      "name": "Reject invalid coordinate data",
+      "passed": true
+    },
+    {
+      "name": "2D input receives zero Z",
+      "passed": true
+    },
+    {
+      "name": "Length sort retains original paths and IDs",
+      "passed": true
+    },
+    {
+      "name": "Minimum-length boundary is strict",
+      "passed": true
+    },
+    {
+      "name": "Travel length connects ends to starts",
+      "passed": true
+    },
+    {
+      "name": "Closed seam shift preserves length and closure",
+      "passed": true
+    },
+    {
+      "name": "Stack copies preserve geometry and increase Z",
+      "passed": true
+    },
+    {
+      "name": "Alternating layers reverse every second group",
+      "passed": true
+    },
+    {
+      "name": "Spiral begins and ends at the expected layer seam",
+      "passed": true
+    },
+    {
+      "name": "Legacy System.Random(1) known sequence",
+      "passed": true
+    },
+    {
+      "name": "Travel sorter is deterministic, preserves paths, and does not mutate input",
+      "passed": true
+    },
+    {
+      "name": "Travel sorter handles empty and singleton input",
+      "passed": true
+    },
+    {
+      "name": "CSV round-trip preserves coordinates and simple layers",
+      "passed": true
+    },
+    {
+      "name": "Malformed CSV is rejected",
+      "passed": true
+    },
+    {
+      "name": "Sample geometry has finite dimensions and 24 paths",
+      "passed": true
+    }
+  ],
+  "htmlScriptSyntax": "passed",
+  "browserInteractionTests": "not run; browser/terminal tools unavailable",
+  "rhinoParityTests": "not run"
+}
