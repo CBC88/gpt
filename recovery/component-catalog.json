@@ -1,0 +1,2586 @@
+[
+  {
+    "name": "Termite Create Alternated Layers",
+    "objectCount": 111,
+    "params": [
+      {
+        "description": "Termite is expecting lines or curves as input, which it layers along a chosen axis while alternating the path direction for every second layer",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Termite is expecting an integer defining which axis to take for layering of the given paths (X = 0, Y = 1, Z = 2)",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Vertical Axis"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not the numbering of the printing paths is displayed in Rhino Viewport (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Show Information"
+      },
+      {
+        "description": "Print paths sorted and stacked along the given axis, with the direction of all paths in every second layer flipped.",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Number of individual values along the given axis as integer",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Layer Count"
+      },
+      {
+        "description": "Individual values along the given axis as numbers",
+        "direction": "OutputParam",
+        "index": 2,
+        "name": "Layer Values"
+      }
+    ],
+    "scriptCount": 0,
+    "slug": "termite-create-alternated-layers",
+    "types": {
+      "Boolean": 7,
+      "Clean Tree": 8,
+      "Colour Swatch": 1,
+      "Concatenate": 1,
+      "Create Set": 1,
+      "Cull Pattern": 6,
+      "Curve": 4,
+      "Curve To Polyline": 1,
+      "Deconstruct": 2,
+      "Delete Consecutive": 1,
+      "Dispatch": 1,
+      "End Points": 1,
+      "Equality": 1,
+      "Expression": 4,
+      "Flip Curve": 1,
+      "Geometry": 6,
+      "Group": 8,
+      "Integer": 4,
+      "Larger Than": 1,
+      "Layer Count": 1,
+      "Layer Values": 1,
+      "List Item": 1,
+      "List Length": 1,
+      "Mass Addition": 3,
+      "Match Text": 2,
+      "Member Index": 2,
+      "Multiplication": 1,
+      "Number": 2,
+      "Panel": 6,
+      "Point": 4,
+      "Point On Curve": 2,
+      "Polygon Center": 1,
+      "Printing Paths": 2,
+      "Replace Nulls": 3,
+      "Reverse List": 2,
+      "Series": 2,
+      "Show Information": 1,
+      "Sketch": 1,
+      "Sort List": 1,
+      "Split Tree": 1,
+      "Stream Filter": 3,
+      "Text Tag": 1,
+      "Tree Statistics": 3,
+      "Value List": 1,
+      "Vector 2Pt": 1,
+      "Vector Display Ex": 1,
+      "Vertical Axis": 1,
+      "Weave": 1
+    }
+  },
+  {
+    "name": "Termite Create Base",
+    "objectCount": 295,
+    "params": [
+      {
+        "description": "Termite is expecting a surface, polysurface, mesh, or a planar closed curve for adding a base",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Geometry"
+      },
+      {
+        "description": "Termite is expecting an integer defining which pattern is used for the infill (Grid = 0, Offset = 1, Mixed = 2)",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Infill Pattern"
+      },
+      {
+        "description": "Termite is expecting a boolean value that specifies whether, for each layer, as many infill curves of the grid pattern as possible should be joined (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Join Infill"
+      },
+      {
+        "description": "Termite is expecting an integer defining the number of layers to be added for building the base (1 - 10)",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Layer Count"
+      },
+      {
+        "description": "Termite is expecting a number defining the height of all layers in mm (0.1 - 20)",
+        "direction": "InputParam",
+        "index": 4,
+        "name": "Layer Height"
+      },
+      {
+        "description": "Termite is expecting a number defining the outer offset distance in mm from a given surface before starting the infill pattern (0 - 50)",
+        "direction": "InputParam",
+        "index": 5,
+        "name": "Infill Margin"
+      },
+      {
+        "description": "Termite is expecting a number defining the distance in mm between printing paths being added to build a base (0.1 - 50)",
+        "direction": "InputParam",
+        "index": 6,
+        "name": "Infill Density"
+      },
+      {
+        "description": "Termite is expecting a boolean value indicating whether a smooth outer boundary should be added to layers with a grid infill (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 7,
+        "name": "Infill Boundary"
+      },
+      {
+        "description": "Printing Paths created by filling the base of a given surface",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Information about created printing paths",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Information"
+      }
+    ],
+    "scriptCount": 8,
+    "slug": "termite-create-base",
+    "types": {
+      "Addition": 2,
+      "Area": 1,
+      "Boolean": 9,
+      "Bounding Box": 2,
+      "Cap Holes": 1,
+      "Clean Tree": 4,
+      "Closed": 3,
+      "Construct Plane": 1,
+      "Construct Point": 1,
+      "Contour (ex)": 2,
+      "Cull Index": 1,
+      "Cull Pattern": 6,
+      "Curve": 18,
+      "Curve Closest Point": 4,
+      "Deconstruct Box": 1,
+      "Deconstruct Domain": 1,
+      "Dispatch": 8,
+      "Distance": 1,
+      "Divide Length": 2,
+      "Duplicate Data": 2,
+      "End Points": 4,
+      "Evaluate Box": 1,
+      "Explode": 3,
+      "Extrude": 1,
+      "Flip Curve": 2,
+      "Geometry": 2,
+      "GhPython Script": 1,
+      "Group": 39,
+      "Includes": 5,
+      "Infill Boundary": 1,
+      "Infill Density": 1,
+      "Infill Margin": 1,
+      "Infill Pattern": 1,
+      "Information": 1,
+      "Insert Items": 1,
+      "Integer": 3,
+      "Join Curves": 3,
+      "Join Infill": 1,
+      "Larger Than": 2,
+      "Layer Count": 1,
+      "Layer Height": 1,
+      "Length": 3,
+      "List Item": 11,
+      "List Length": 2,
+      "Mass Addition": 4,
+      "Match Tree": 1,
+      "Move": 5,
+      "Multiplication": 1,
+      "Negative": 3,
+      "Null Item": 2,
+      "Number": 5,
+      "Number Slider": 1,
+      "Panel": 25,
+      "Partition List": 1,
+      "Point": 1,
+      "Point On Curve": 4,
+      "PolyLine": 1,
+      "Printing Paths": 1,
+      "Rectangle": 1,
+      "Rotate": 2,
+      "Scale": 1,
+      "Seam": 4,
+      "Series": 3,
+      "Simplify Curve": 2,
+      "Sketch": 1,
+      "Smaller Than": 2,
+      "Sort List": 2,
+      "Split List": 1,
+      "Split Tree": 6,
+      "Stream Filter": 13,
+      "Stream Gate": 2,
+      "Suirify": 11,
+      "Surface": 1,
+      "Text": 1,
+      "Tree Statistics": 6,
+      "Trim Tree": 3,
+      "Trim with Brep": 1,
+      "Unit Z": 3,
+      "VB Script": 7,
+      "Vector 2Pt": 2,
+      "Weave": 3,
+      "XY Plane": 1
+    }
+  },
+  {
+    "name": "Termite Create Shifted Ends",
+    "objectCount": 131,
+    "params": [
+      {
+        "description": "Termite is expecting curves or lines as input for printing paths",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Termite is expecting a number defining the shorten/extend length in mm at the start of each printing path",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Shift Start Points"
+      },
+      {
+        "description": "Termite is expecting a number defining the shorten/extend length in mm at the end of each printing path",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Shift End Points"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not the extensions of the printing paths are displayed in Rhino Viewport (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Show Extension"
+      },
+      {
+        "description": "Printing Paths created by extending given paths",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Start Points created by shortening or extending given paths",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Start Points"
+      },
+      {
+        "description": "End Points created by shortening or extending given paths",
+        "direction": "OutputParam",
+        "index": 2,
+        "name": "End Points"
+      },
+      {
+        "description": "Information about created printing paths",
+        "direction": "OutputParam",
+        "index": 3,
+        "name": "Information"
+      }
+    ],
+    "scriptCount": 0,
+    "slug": "termite-create-shifted-ends",
+    "types": {
+      "Absolute": 3,
+      "Addition": 4,
+      "Boolean": 2,
+      "Boolean Toggle": 2,
+      "Clean Tree": 4,
+      "Closed": 1,
+      "Colour Swatch": 4,
+      "Concatenate": 1,
+      "Connect Curves": 1,
+      "Cull Pattern": 3,
+      "Curve": 8,
+      "Dispatch": 2,
+      "Divide Length": 2,
+      "End Points": 3,
+      "Equality": 1,
+      "Extend Curve": 2,
+      "Flip Curve": 2,
+      "Group": 11,
+      "Information": 1,
+      "Integer": 2,
+      "Join Curves": 2,
+      "Larger Than": 2,
+      "List Item": 3,
+      "List Length": 3,
+      "Mass Addition": 1,
+      "Merge": 3,
+      "Null Item": 1,
+      "Number": 4,
+      "Panel": 23,
+      "Path Mapper": 2,
+      "Pick'n'Choose": 1,
+      "Point": 4,
+      "Printing Paths": 2,
+      "Shatter": 1,
+      "Shift End Points": 1,
+      "Shift Start Points": 1,
+      "Show Extension": 1,
+      "Sketch": 1,
+      "Start Points": 1,
+      "Stream Filter": 5,
+      "Sub Curve": 2,
+      "Text": 1,
+      "Text Tag": 4,
+      "Value List": 1,
+      "Weave": 2
+    }
+  },
+  {
+    "name": "Termite Create Shifted Seams",
+    "objectCount": 33,
+    "params": [
+      {
+        "description": "Termite is expecting curves or lines as input for printing paths",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Termite is expecting an optional point or curves as an attractor to shift all printing path seams as close as possible to it",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Attractor (Optional)"
+      },
+      {
+        "description": "Termite is expecting a float number defining the range for randomly shifting the seams of the printing paths (0.0 - 1.0)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Random Range"
+      },
+      {
+        "description": "Termite is expecting an integer defining the seed for randomly shifting the seams of the printing paths",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Random Seed"
+      },
+      {
+        "description": "Printing paths with randomly shifted seams",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Randomly shifted seams of the printing paths",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Seams"
+      }
+    ],
+    "scriptCount": 0,
+    "slug": "termite-create-shifted-seams",
+    "types": {
+      "Attractor (Optional)": 1,
+      "Clean Tree": 4,
+      "Construct Domain": 1,
+      "Curve": 2,
+      "Curve Closest Point": 2,
+      "Curve Proximity": 1,
+      "Division": 1,
+      "End Points": 1,
+      "Geometry": 1,
+      "Group": 1,
+      "Integer": 1,
+      "List Length": 1,
+      "Negative": 1,
+      "Null Item": 1,
+      "Number": 1,
+      "Panel": 2,
+      "Point": 1,
+      "Printing Paths": 2,
+      "Random": 1,
+      "Random Seed": 1,
+      "Randomize": 1,
+      "Seam": 2,
+      "Seams": 1,
+      "Sketch": 1,
+      "Stream Filter": 1
+    }
+  },
+  {
+    "name": "Termite Create Sling Contours",
+    "objectCount": 607,
+    "params": [
+      {
+        "description": "Termite is expecting a surface, polysurface, or mesh to contour",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Surface"
+      },
+      {
+        "description": "Termite is expecting one or multiple optional points for slings to be positively or negatively attracted from",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Attractor Points (Optional)"
+      },
+      {
+        "description": "Termite is expecting a boolean value as a trigger to manually select sub-surface(s) from a polysurfaces for creating slings. Use the Grasshopper Button to trigger the event (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Select Sub-surface(s)"
+      },
+      {
+        "description": "Termite is expecting a number defining the height in mm of one spiral (0.1 - 20)",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Layer Height"
+      },
+      {
+        "description": "Contains a collection of boolean values",
+        "direction": "InputParam",
+        "index": 4,
+        "name": "Flip Direction"
+      },
+      {
+        "description": "Termite is expecting an integer defining the number of slings per layer (1 - 1000)",
+        "direction": "InputParam",
+        "index": 5,
+        "name": "Sling Count"
+      },
+      {
+        "description": "Termite is expecting a number defining the multiplication factor of the width of all slings (0.0 - 1.0)",
+        "direction": "InputParam",
+        "index": 6,
+        "name": "Sling Width Factor"
+      },
+      {
+        "description": "Termite is expecting a number defining the minimum length in mm of all slings (0 - 100)",
+        "direction": "InputParam",
+        "index": 7,
+        "name": "Sling Length Minimum "
+      },
+      {
+        "description": "Termite is expecting a boolean value whether the effect of the given attractor point on the length of all slings is negative or positive (Negative = 0, Positive = 1)",
+        "direction": "InputParam",
+        "index": 8,
+        "name": "Attractor Point Effect"
+      },
+      {
+        "description": "Termite is expecting a number defining the exponentiality of the effect on all slings of the given attractor point (Linear = 0, Exponential = 1)",
+        "direction": "InputParam",
+        "index": 9,
+        "name": "Attractor Effect Exponentiality"
+      },
+      {
+        "description": "Termite is expecting a number defining the maximum length in mm of all slings affected by the given attractor point (0 - 100)",
+        "direction": "InputParam",
+        "index": 10,
+        "name": "Attractor Effect Maximum Length"
+      },
+      {
+        "description": "Termite is expecting a number defining the factor of the radius of a fillet for all slings (None = 0, Round = 1)",
+        "direction": "InputParam",
+        "index": 11,
+        "name": "Sling Fillet Factor"
+      },
+      {
+        "description": "Termite is expecting a number defining the shape of all slings (Straight = 0, Sharp = 1)",
+        "direction": "InputParam",
+        "index": 12,
+        "name": "Sling Shape Factor"
+      },
+      {
+        "description": "Termite is expecting a number specifying the distance in mm to move the ends of all path segments between each sling inward (0 - 50)",
+        "direction": "InputParam",
+        "index": 13,
+        "name": "Sling Move Inward Length"
+      },
+      {
+        "description": "Termite is expecting a number to define the rebuild-resolution of the path segment that is moving all slings inwards (2- 10)\r\n",
+        "direction": "InputParam",
+        "index": 14,
+        "name": "Sling Move Inward Resolution"
+      },
+      {
+        "description": "Termite is expecting a number to define the factor of narrowing all slings on the contours (0 - 1)",
+        "direction": "InputParam",
+        "index": 15,
+        "name": "Sling Narrow Inward Factor"
+      },
+      {
+        "description": "Contains a collection of integer numbers",
+        "direction": "InputParam",
+        "index": 16,
+        "name": "Skipping Layers Bottom"
+      },
+      {
+        "description": "Termite is expecting an integer defining how many contours at the bottom get skipped until contours containing slings appear",
+        "direction": "InputParam",
+        "index": 17,
+        "name": "Skipping Slings Bottom"
+      },
+      {
+        "description": "Termite is expecting an integer defining how many contours at the top get skipped until contours containing slings appear",
+        "direction": "InputParam",
+        "index": 18,
+        "name": "Skipping Slings Top"
+      },
+      {
+        "description": " Termite is expecting a boolean value whether or not the curve seams are shifted gradually each layer, in order to avoid a vertical seam (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 19,
+        "name": "Shift Path Seams"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not the printing path seam or start points are displayed in Rhino Viewport (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 20,
+        "name": "Show Seam/Start Points"
+      },
+      {
+        "description": "Printing Paths created by contouring and eventually adding slings",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Seam Points created by contouring that are eventually shifted",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Seam Points"
+      },
+      {
+        "description": "Printing Paths of contours containing continuous paths only",
+        "direction": "OutputParam",
+        "index": 2,
+        "name": "Paths Only Continuous"
+      },
+      {
+        "description": "Printing Paths of contours containing slings type A only",
+        "direction": "OutputParam",
+        "index": 3,
+        "name": "Paths Only Type A"
+      },
+      {
+        "description": "Printing Paths of contours containing slings type B only",
+        "direction": "OutputParam",
+        "index": 4,
+        "name": "Paths Only Type B"
+      },
+      {
+        "description": "Information about created printing paths",
+        "direction": "OutputParam",
+        "index": 5,
+        "name": "Information"
+      }
+    ],
+    "scriptCount": 1,
+    "slug": "termite-create-sling-contours",
+    "types": {
+      "Addition": 11,
+      "Attractor Effect Exponentiality": 1,
+      "Attractor Effect Maximum Length": 1,
+      "Attractor Point Effect": 1,
+      "Attractor Points (Optional)": 1,
+      "Boolean": 16,
+      "Bounding Box": 2,
+      "Bounds": 4,
+      "Brep": 4,
+      "Brep Closest Point": 6,
+      "Brep Join": 1,
+      "Clean Tree": 13,
+      "Closed": 3,
+      "Concatenate": 5,
+      "Connect Curves": 2,
+      "Construct Domain": 1,
+      "Construct Path": 2,
+      "Contour": 2,
+      "Create Set": 1,
+      "Cull Index": 1,
+      "Cull Pattern": 11,
+      "Curve": 15,
+      "Curve Closest Point": 2,
+      "Dash Pattern": 2,
+      "Data": 6,
+      "Distance": 2,
+      "Divide Curve": 2,
+      "Division": 11,
+      "Duplicate Data": 2,
+      "End Points": 5,
+      "Equality": 4,
+      "Evaluate Box": 2,
+      "Explode": 4,
+      "Expression": 2,
+      "Extend Curve": 4,
+      "Fillet": 2,
+      "Flip Curve": 1,
+      "Geometry": 9,
+      "GhPython Script": 1,
+      "Group": 120,
+      "Includes": 11,
+      "Information": 1,
+      "Integer": 13,
+      "Interpolate": 2,
+      "Join Curves": 3,
+      "Larger Than": 6,
+      "Layer Height": 1,
+      "Length": 10,
+      "Line": 4,
+      "List Item": 12,
+      "List Length": 12,
+      "Mass Addition": 6,
+      "Match Tree": 6,
+      "Merge": 5,
+      "Mesh": 5,
+      "Mesh Closest Point": 6,
+      "Mesh Eval": 6,
+      "Move": 6,
+      "Multiplication": 20,
+      "Negative": 5,
+      "Null Item": 3,
+      "Number": 22,
+      "Panel": 22,
+      "Partition List": 2,
+      "Path Mapper": 11,
+      "Paths Only Continuous": 1,
+      "Paths Only Type A": 1,
+      "Paths Only Type B": 1,
+      "Pick'n'Choose": 2,
+      "Point": 9,
+      "Point On Curve": 6,
+      "Printing Paths": 1,
+      "Remap Numbers": 8,
+      "Replace Items": 4,
+      "Replace Nulls": 6,
+      "Seam": 3,
+      "Seam Points": 1,
+      "Select Sub-surface(s)": 1,
+      "Series": 5,
+      "Shift Path Seams": 1,
+      "Show Seam/Start Points": 1,
+      "Sketch": 1,
+      "Skipping Layers Bottom": 1,
+      "Skipping Slings Bottom": 1,
+      "Skipping Slings Top": 1,
+      "Sling Count": 1,
+      "Sling Direction": 1,
+      "Sling Fillet Factor": 1,
+      "Sling Length Minimum ": 1,
+      "Sling Move Inward Length": 1,
+      "Sling Move Inward Width": 1,
+      "Sling Narrow Inward Factor": 1,
+      "Sling Shape Factor": 1,
+      "Sling Width Factor": 1,
+      "Sort List": 2,
+      "Split Tree": 6,
+      "Stream Filter": 14,
+      "Subtraction": 6,
+      "Suirify": 11,
+      "Surface": 3,
+      "Text": 1,
+      "Tree Branch": 2,
+      "Tree Statistics": 2,
+      "Trim Tree": 4,
+      "Unit Z": 2,
+      "Weave": 5
+    }
+  },
+  {
+    "name": "Termite Create Spiral from Curve",
+    "objectCount": 194,
+    "params": [
+      {
+        "description": "Termite is expecting one closed, planar curve as input for printing path",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Printing Path"
+      },
+      {
+        "description": "Termite is expecting an optional point defining the position of the start of the spiral",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Seam Point (Optional)"
+      },
+      {
+        "description": "Termite is expecting an integer defining the amount of control points of one spiral (10 - 1000)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Path Resolution"
+      },
+      {
+        "description": "Termite is expecting a number defining the height in mm of one spiral",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Layer Height"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not to flip the direction of rotation of the created spiral (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 4,
+        "name": "Flip Spiral Rotation"
+      },
+      {
+        "description": "Termite is expecting an integer defining the count of the spirals to be stacked along the Z-axis",
+        "direction": "InputParam",
+        "index": 5,
+        "name": "Stacking Count"
+      },
+      {
+        "description": "Termite is expecting a number to define the amplitude of an eventual ZigZag pattern of printing paths. The frequency of the pattern is defined by the Path Resolution (0 - 10)",
+        "direction": "InputParam",
+        "index": 6,
+        "name": "ZigZag Amplitude"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not the printing path seams are displayed in Rhino Viewport (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 7,
+        "name": "Show Seams"
+      },
+      {
+        "description": "Printing Path spiralized and eventually stacked along Z-axis",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Path"
+      },
+      {
+        "description": "Information about created printing path",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Information"
+      }
+    ],
+    "scriptCount": 0,
+    "slug": "termite-create-spiral-from-curve",
+    "types": {
+      "Addition": 6,
+      "Amplitude": 2,
+      "Boolean": 10,
+      "Boolean Toggle": 4,
+      "Brep": 1,
+      "Brep Closest Point": 2,
+      "Clean Tree": 3,
+      "Closed": 2,
+      "Colour Swatch": 1,
+      "Concatenate": 1,
+      "Cull Index": 1,
+      "Cull Pattern": 9,
+      "Curve": 2,
+      "Curve Closest Point": 1,
+      "Deconstruct Vector": 2,
+      "Dispatch": 3,
+      "Divide Curve": 1,
+      "Division": 1,
+      "End Points": 1,
+      "Equality": 2,
+      "Extrude": 1,
+      "Flip": 1,
+      "Flip Curve": 1,
+      "Flip Spiral Rotation": 1,
+      "Geometry": 2,
+      "Group": 12,
+      "Includes": 2,
+      "Information": 1,
+      "Insert Items": 2,
+      "Integer": 5,
+      "Larger Than": 3,
+      "Layer Height": 1,
+      "List Item": 8,
+      "List Length": 3,
+      "Mass Addition": 1,
+      "Member Index": 2,
+      "Merge": 2,
+      "Mesh": 1,
+      "Mesh Closest Point": 2,
+      "Mesh Eval": 2,
+      "Move": 4,
+      "Multiplication": 1,
+      "Null Item": 1,
+      "Number": 5,
+      "Panel": 21,
+      "Path Resolution": 1,
+      "Pick'n'Choose": 1,
+      "Planar": 1,
+      "Point": 5,
+      "PolyLine": 1,
+      "Printing Path": 2,
+      "Replace Nulls": 2,
+      "Seam": 1,
+      "Seam Point (Optional)": 1,
+      "Series": 2,
+      "Show Seams": 1,
+      "Sketch": 1,
+      "Sort List": 2,
+      "Split Tree": 1,
+      "Stacking Count": 1,
+      "Stream Filter": 4,
+      "Subtraction": 1,
+      "Text": 1,
+      "Text Tag": 1,
+      "Tree Branch": 5,
+      "Tree Statistics": 2,
+      "Unit Z": 3,
+      "Vector": 1,
+      "Vector XYZ": 2,
+      "Weave": 10,
+      "ZigZag Amplitude": 1
+    }
+  },
+  {
+    "name": "Termite Create Spiral from Stacked Layers",
+    "objectCount": 232,
+    "params": [
+      {
+        "description": "Contains a collection of generic geometry",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Contains a collection of three-dimensional points",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Seam Point (Optional)"
+      },
+      {
+        "description": "Contains a collection of integer numbers",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Path Resolution"
+      },
+      {
+        "description": "Contains a collection of boolean values",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Flip Spiral Rotation"
+      },
+      {
+        "description": "Contains a collection of floating point numbers",
+        "direction": "InputParam",
+        "index": 4,
+        "name": "Adjust Seam"
+      },
+      {
+        "description": "Contains a collection of floating point numbers",
+        "direction": "InputParam",
+        "index": 5,
+        "name": "ZigZag Amplitude"
+      },
+      {
+        "description": "Contains a collection of boolean values",
+        "direction": "InputParam",
+        "index": 6,
+        "name": "Show Seams"
+      },
+      {
+        "description": "Contains a collection of generic curves",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Path"
+      },
+      {
+        "description": "List of all targets of each printing path",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Targets"
+      },
+      {
+        "description": "Contains a collection of text fragments",
+        "direction": "OutputParam",
+        "index": 2,
+        "name": "Information"
+      }
+    ],
+    "scriptCount": 1,
+    "slug": "termite-create-spiral-from-stacked-layers",
+    "types": {
+      "Addition": 3,
+      "Adjust Seam": 1,
+      "Amplitude": 2,
+      "Boolean": 11,
+      "Boolean Toggle": 2,
+      "Brep": 1,
+      "Brep Closest Point": 2,
+      "Cap Holes Ex": 1,
+      "Clean Tree": 6,
+      "Closed": 1,
+      "Colour Swatch": 1,
+      "Concatenate": 1,
+      "Cull Index": 1,
+      "Cull Pattern": 7,
+      "Curve": 3,
+      "Curve Closest Point": 2,
+      "Curve To Polyline": 1,
+      "Deconstruct": 1,
+      "Deconstruct Vector": 2,
+      "Delete Consecutive": 1,
+      "Dispatch": 3,
+      "Distance": 1,
+      "Divide Curve": 1,
+      "Division": 2,
+      "Duplicate Data": 1,
+      "End Points": 2,
+      "Equality": 3,
+      "Expression": 4,
+      "Flip Curve": 2,
+      "Flip Matrix": 1,
+      "Flip Spiral Rotation": 1,
+      "Geometry": 4,
+      "Group": 12,
+      "Includes": 2,
+      "Information": 1,
+      "Insert Items": 1,
+      "Integer": 2,
+      "Length": 2,
+      "List Item": 13,
+      "List Length": 6,
+      "Mass Addition": 6,
+      "Member Index": 1,
+      "Merge": 1,
+      "Mesh": 1,
+      "Mesh Closest Point": 2,
+      "Mesh Eval": 2,
+      "Move": 2,
+      "Move Away From": 1,
+      "Multiplication": 1,
+      "Negative": 1,
+      "Null Item": 6,
+      "Number": 4,
+      "Panel": 22,
+      "Path Resolution": 1,
+      "Pick'n'Choose": 1,
+      "Point": 7,
+      "PolyLine": 2,
+      "Polygon Center": 1,
+      "Printing Path": 1,
+      "Printing Paths": 1,
+      "Replace Nulls": 3,
+      "Reverse List": 3,
+      "Seam": 3,
+      "Seam Point (Optional)": 1,
+      "Series": 4,
+      "Show Seams": 1,
+      "Sketch": 1,
+      "Smaller Than": 1,
+      "Sort List": 3,
+      "Split Tree": 1,
+      "Stream Filter": 16,
+      "Subtraction": 3,
+      "Targets": 1,
+      "Text": 1,
+      "Text Tag": 1,
+      "Tree Branch": 3,
+      "Tree Statistics": 1,
+      "VB Script": 1,
+      "Vector XYZ": 2,
+      "Weave": 3,
+      "ZigZag Amplitude": 1
+    }
+  },
+  {
+    "name": "Termite Create Spiral from Surface",
+    "objectCount": 257,
+    "params": [
+      {
+        "description": "Termite is expecting a surface, polysurface, or mesh to spiralize",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Surface"
+      },
+      {
+        "description": "Termite is expecting an optional point defining the position of the start of the spiral",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Seam Point (Optional)"
+      },
+      {
+        "description": "Termite is expecting an integer defining the amount of control points of one spiral (10 - 1000)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Path Resolution"
+      },
+      {
+        "description": "Termite is expecting a number defining the height of one spiral",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Layer Height"
+      },
+      {
+        "description": "Termite is expecting a boolean value indicating whether the layer height should be reduced to compensate for overhangs (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 4,
+        "name": "Dynamic Layer Height"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not to flip the direction of rotation of the created spiral (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 5,
+        "name": "Flip Spiral Rotation"
+      },
+      {
+        "description": "Termite is expecting a number defining the position of the start of the spiral (0.00 - 1.00)",
+        "direction": "InputParam",
+        "index": 6,
+        "name": "Adjust Seam"
+      },
+      {
+        "description": "Contains a collection of integer numbers",
+        "direction": "InputParam",
+        "index": 7,
+        "name": "Skipping Layers Bottom"
+      },
+      {
+        "description": "Termite is expecting a number to define the amplitude of an eventual ZigZag pattern of printing paths. The frequency of the pattern is defined by the Path Resolution (0 - 10)",
+        "direction": "InputParam",
+        "index": 8,
+        "name": "ZigZag Amplitude"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not the printing path seams are displayed in Rhino Viewport (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 9,
+        "name": "Show Seams"
+      },
+      {
+        "description": "Printing Path created by spiralizing a surface",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Path"
+      },
+      {
+        "description": "List of all targets of each printing path",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Targets"
+      },
+      {
+        "description": "Information about created printing paths",
+        "direction": "OutputParam",
+        "index": 2,
+        "name": "Information"
+      }
+    ],
+    "scriptCount": 2,
+    "slug": "termite-create-spiral-from-surface",
+    "types": {
+      "Addition": 3,
+      "Adjust Seam": 1,
+      "Amplitude": 2,
+      "Boolean": 13,
+      "Boolean Toggle": 2,
+      "Bounding Box": 1,
+      "Brep": 1,
+      "Brep Closest Point": 2,
+      "C# Script": 1,
+      "Cap Holes Ex": 1,
+      "Clean Tree": 3,
+      "Closed": 1,
+      "Colour Swatch": 1,
+      "Concatenate": 1,
+      "Contour": 4,
+      "Cull Index": 2,
+      "Cull Pattern": 8,
+      "Curve": 4,
+      "Curve Closest Point": 3,
+      "Deconstruct Vector": 2,
+      "Dispatch": 3,
+      "Distance": 1,
+      "Divide Curve": 1,
+      "Divide Length": 1,
+      "Division": 2,
+      "Duplicate Data": 1,
+      "Dynamic Layer Height": 1,
+      "End Points": 4,
+      "Equality": 3,
+      "Evaluate Box": 3,
+      "Expression": 2,
+      "Flip Curve": 2,
+      "Flip Matrix": 1,
+      "Flip Spiral Rotation": 1,
+      "Geometry": 6,
+      "Group": 17,
+      "Includes": 2,
+      "Information": 1,
+      "Insert Items": 2,
+      "Integer": 2,
+      "Join Curves": 2,
+      "Larger Than": 2,
+      "Layer Height": 1,
+      "Length": 2,
+      "List Item": 13,
+      "List Length": 6,
+      "Mass Addition": 6,
+      "Merge": 1,
+      "Mesh": 2,
+      "Mesh Closest Point": 2,
+      "Mesh Eval": 2,
+      "Move": 2,
+      "Move Away From": 1,
+      "Multiplication": 1,
+      "Negative": 1,
+      "Null Item": 6,
+      "Number": 5,
+      "Number Slider": 1,
+      "Panel": 23,
+      "Path Resolution": 1,
+      "Pick'n'Choose": 1,
+      "Point": 6,
+      "PolyLine": 3,
+      "Printing Path": 1,
+      "Replace Nulls": 2,
+      "Seam": 5,
+      "Seam Point (Optional)": 1,
+      "Series": 4,
+      "Show Seams": 1,
+      "Sketch": 1,
+      "Skipping Layers Bottom": 1,
+      "Smaller Than": 1,
+      "Sort List": 2,
+      "Split Tree": 1,
+      "Stream Filter": 15,
+      "Stream Gate": 1,
+      "Subtraction": 3,
+      "Surface": 1,
+      "Targets": 1,
+      "Text": 1,
+      "Text Tag": 1,
+      "Tree Branch": 3,
+      "Tree Statistics": 1,
+      "Unit Z": 1,
+      "VB Script": 1,
+      "Vector XYZ": 2,
+      "Weave": 3,
+      "ZigZag Amplitude": 1
+    }
+  },
+  {
+    "name": "Termite Create Stair Contours",
+    "objectCount": 345,
+    "params": [
+      {
+        "description": "Termite is expecting a surface, polysurface, or mesh to contour",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Surface"
+      },
+      {
+        "description": "Termite is expecting an optional point defining the position of the start of the spiral",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Seam Point (Optional)"
+      },
+      {
+        "description": "Termite is expecting an integer defining the amount of control points of one contour (10 - 1000)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Path Resolution"
+      },
+      {
+        "description": "Termite is expecting a number defining the vertical distance in mm between each contour",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Layer Height"
+      },
+      {
+        "description": "Termite is expecting a boolean value indicating whether the layer height should be reduced to compensate for overhangs (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 4,
+        "name": "Dynamic Layer Height"
+      },
+      {
+        "description": "Termite is expecting a number defining the position of the start of the contours (0.00 - 1.00)",
+        "direction": "InputParam",
+        "index": 5,
+        "name": "Adjust Seam"
+      },
+      {
+        "description": "Termite is expecting a boolean value indicating whether the layer height should be reduced to compensate for overhangs (False = 0, True = 1).",
+        "direction": "InputParam",
+        "index": 6,
+        "name": "Flip Paths Each Layer"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not to join all contours with stairs (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 7,
+        "name": "Join Contours With Stairs"
+      },
+      {
+        "description": "Termite is expecting a number to define the length in mm of the step connection each contour. When set to \"0\" no stair is made (0 - 500)",
+        "direction": "InputParam",
+        "index": 8,
+        "name": "Stair Length"
+      },
+      {
+        "description": "Termite is expecting an integer defining how many layers at the bottom get skipped in order to facilitate base layers from \"Create Base from Surface\"",
+        "direction": "InputParam",
+        "index": 9,
+        "name": "Skipping Layers Bottom"
+      },
+      {
+        "description": "Termite is expecting a number to define the amplitude of an eventual ZigZag pattern of printing paths. The frequency of the pattern is defined by the Path Resolution (0 - 10)",
+        "direction": "InputParam",
+        "index": 10,
+        "name": "ZigZag Amplitude"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not the printing path seams are displayed in Rhino Viewport (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 11,
+        "name": "Show Seams"
+      },
+      {
+        "description": "Printing Path created by contouring a surface",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Path"
+      },
+      {
+        "description": "List of all targets of each printing path",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Targets"
+      },
+      {
+        "description": "Information about created printing paths",
+        "direction": "OutputParam",
+        "index": 2,
+        "name": "Information"
+      }
+    ],
+    "scriptCount": 2,
+    "slug": "termite-create-stair-contours",
+    "types": {
+      "Adjust Seam": 1,
+      "Amplitude": 3,
+      "Boolean": 20,
+      "Boolean Toggle": 1,
+      "Bounding Box": 1,
+      "Brep": 2,
+      "Brep Closest Point": 3,
+      "C# Script": 1,
+      "Clean Tree": 3,
+      "Closed": 1,
+      "Colour Swatch": 1,
+      "Concatenate": 1,
+      "Contour": 4,
+      "Cull Index": 4,
+      "Cull Pattern": 7,
+      "Curve": 13,
+      "Curve Closest Point": 3,
+      "Deconstruct Vector": 3,
+      "Dispatch": 6,
+      "Divide Curve": 1,
+      "Divide Length": 1,
+      "Dynamic Layer Height": 1,
+      "End Points": 6,
+      "Equality": 3,
+      "Evaluate Box": 3,
+      "Expression": 2,
+      "Extend Curve": 1,
+      "Flip Curve": 3,
+      "Flip Paths Each Layer": 1,
+      "Geometry": 8,
+      "Group": 52,
+      "Includes": 3,
+      "Information": 1,
+      "Insert Items": 1,
+      "Integer": 2,
+      "Join Contours With Stairs": 1,
+      "Join Curves": 4,
+      "Larger Than": 3,
+      "Layer Height": 1,
+      "Line": 1,
+      "List Item": 9,
+      "List Length": 6,
+      "Mass Addition": 7,
+      "Mesh": 2,
+      "Mesh Closest Point": 3,
+      "Mesh Eval": 3,
+      "Move": 3,
+      "Multiplication": 1,
+      "Negative": 2,
+      "Null Item": 4,
+      "Number": 8,
+      "Number Slider": 1,
+      "Panel": 28,
+      "Partition List": 1,
+      "Path Resolution": 1,
+      "Pick'n'Choose": 1,
+      "Point": 6,
+      "PolyLine": 4,
+      "Printing Path": 1,
+      "Rebuild Curve": 1,
+      "Replace Nulls": 3,
+      "Reverse": 1,
+      "Seam": 5,
+      "Seam Point (Optional)": 1,
+      "Series": 1,
+      "Show Seams": 1,
+      "Sketch": 1,
+      "Skipping Layers Bottom": 1,
+      "Sort List": 1,
+      "Split Tree": 1,
+      "Stair Length": 1,
+      "Stream Filter": 26,
+      "Stream Gate": 4,
+      "Subtraction": 3,
+      "Suirify": 2,
+      "Surface": 1,
+      "Targets": 1,
+      "Text": 1,
+      "Text Tag": 1,
+      "Tree Branch": 5,
+      "Tree Statistics": 3,
+      "Unit Z": 1,
+      "VB Script": 1,
+      "Vector XYZ": 3,
+      "Weave": 6,
+      "ZigZag Amplitude": 1
+    }
+  },
+  {
+    "name": "Termite Create Wall",
+    "objectCount": 183,
+    "params": [
+      {
+        "description": "Termite is expecting a surface, polysurface, or mesh to be transformed into a double-layered wall with a ZigZag infill",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Surface"
+      },
+      {
+        "description": "Termite is expecting a number in mm defining the layer height of all layers (0.1 - 20)",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Layer Height"
+      },
+      {
+        "description": "Termite is expecting a number in mm defining the wall thickness without the extrusion width being added (0.1 - 1000)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Wall Thickness"
+      },
+      {
+        "description": "Termite is expecting a number in mm defining the spacing of the ZigZag infill (0.1 - 1000)",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Infill Spacing"
+      },
+      {
+        "description": "Termite is expecting a number defining the distance in mm between the infill and the outter wall (0 - 50)",
+        "direction": "InputParam",
+        "index": 4,
+        "name": "Infill Offset Distance"
+      },
+      {
+        "description": "Termite is expecting an integer defining the position of the created wall (Inside = 0, Outside = 1, Center = 2)",
+        "direction": "InputParam",
+        "index": 5,
+        "name": "Wall Position"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not contour and infill paths are joined per layer (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 6,
+        "name": "Single Path Layers"
+      },
+      {
+        "description": "Printing Paths created by transforming a given surface into a wall",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Information about created printing paths",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Information"
+      }
+    ],
+    "scriptCount": 5,
+    "slug": "termite-create-wall",
+    "types": {
+      "Addition": 1,
+      "Average": 1,
+      "Boolean": 11,
+      "Bounding Box": 1,
+      "Clean Tree": 2,
+      "Closed": 1,
+      "Connect Curves": 1,
+      "Contour": 1,
+      "Cull Index": 2,
+      "Cull Pattern": 2,
+      "Curve": 2,
+      "Deconstruct": 2,
+      "Dispatch": 5,
+      "Divide Curve": 2,
+      "Division": 7,
+      "End Points": 2,
+      "Equality": 1,
+      "Evaluate Box": 1,
+      "Extend Curve": 4,
+      "Flip Curve": 5,
+      "Geometry": 2,
+      "GhPython Script": 1,
+      "Group": 17,
+      "Includes": 5,
+      "Infill Offset Distance": 1,
+      "Infill Spacing": 1,
+      "Information": 1,
+      "Insert Items": 1,
+      "Integer": 3,
+      "Join Curves": 2,
+      "Larger Than": 1,
+      "Layer Height": 1,
+      "Length": 1,
+      "Line": 3,
+      "List Item": 5,
+      "List Length": 1,
+      "Mass Addition": 4,
+      "Merge": 1,
+      "Multiplication": 1,
+      "Negative": 4,
+      "Null Item": 8,
+      "Number": 7,
+      "Panel": 24,
+      "Point": 2,
+      "Point On Curve": 1,
+      "PolyLine": 1,
+      "Printing Paths": 1,
+      "Seam": 2,
+      "Single Path Layers": 1,
+      "Sketch": 1,
+      "Stream Filter": 10,
+      "Subtraction": 1,
+      "Surface": 1,
+      "Text": 1,
+      "VB Script": 4,
+      "Wall Position": 1,
+      "Wall Thickness": 1,
+      "Weave": 5,
+      "XY Plane": 1
+    }
+  },
+  {
+    "name": "Termite Display Clipping Planes",
+    "objectCount": 32,
+    "params": [
+      {
+        "description": "Termite is expecting a boolean value whether or not to activate the clipping planes in Rhino Viewport (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Activate Clipping Planes"
+      },
+      {
+        "description": "Termite is expecting a number defining the Z value of the upper clipping plane (0.1 - 1000)",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Upper Z Height"
+      },
+      {
+        "description": "Termite is expecting a number defining the Z value of the lower clipping plane (0.1 - 1000)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Lower Z Height"
+      },
+      {
+        "description": "Information about created clipping planes",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Information"
+      }
+    ],
+    "scriptCount": 1,
+    "slug": "termite-display-clipping-planes",
+    "types": {
+      "Activate Clipping Planes": 1,
+      "Boolean": 6,
+      "GhPython Script": 1,
+      "Includes": 2,
+      "Information": 1,
+      "Larger Than": 1,
+      "Lower Z Height": 1,
+      "Mass Addition": 1,
+      "Number": 2,
+      "Panel": 8,
+      "Sketch": 1,
+      "Stream Filter": 5,
+      "Text": 1,
+      "Upper Z Height": 1
+    }
+  },
+  {
+    "name": "Termite Display G-code",
+    "objectCount": 58,
+    "params": [
+      {
+        "description": "Termite is expecting a .gcode file path previously generated by Termite ",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "G-code File Path"
+      },
+      {
+        "description": "Rebuild printing paths",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "List of printing path targets with each printing path having its own branch of data",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Targets"
+      },
+      {
+        "description": "Information summarising various printing parameters",
+        "direction": "OutputParam",
+        "index": 2,
+        "name": "Information"
+      }
+    ],
+    "scriptCount": 1,
+    "slug": "termite-display-g-code",
+    "types": {
+      "Addition": 1,
+      "Boolean": 1,
+      "Clean Tree": 5,
+      "Colour Swatch": 1,
+      "Construct Point": 1,
+      "Cull Index": 1,
+      "Cull Pattern": 3,
+      "Curve": 1,
+      "End Points": 1,
+      "File Path": 1,
+      "G-code File Path": 1,
+      "GhPython Script": 1,
+      "Information": 1,
+      "List Item": 5,
+      "List Length": 1,
+      "Match Text": 4,
+      "Member Index": 1,
+      "Move": 1,
+      "Negative": 1,
+      "Panel": 7,
+      "Partition List": 1,
+      "Point": 1,
+      "PolyLine": 1,
+      "Printing Paths": 1,
+      "Read File": 1,
+      "Relative Differences": 1,
+      "Replace Items": 1,
+      "Series": 1,
+      "Sketch": 1,
+      "Suirify": 1,
+      "Targets": 1,
+      "Text": 2,
+      "Text Fragment": 1,
+      "Text Split": 1,
+      "Text Tag": 1,
+      "Tree Branch": 1,
+      "Trim Tree": 1,
+      "Unit Z": 1
+    }
+  },
+  {
+    "name": "Termite Display Simulation",
+    "objectCount": 180,
+    "params": [
+      {
+        "description": "Termite is expecting points provided by the Targets output of the Termite G-code Generator",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Targets"
+      },
+      {
+        "description": "Termite is expecting an integer choosing which printer to work with (WASP 40100 LDM half = 0, WASP 40100 LDM Full = 1, Delta WASP 2040 Clay = 2, Shapelab Argos 140180 = 3)",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Printer Model"
+      },
+      {
+        "description": "Termite is expecting a number to display a specific frame of the simulation (0.0 - 1.0)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Simulation Position"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not to animate the simulation (Grasshopper Trigger needed)",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Animation"
+      },
+      {
+        "description": "Termite is expecting a number defining the speed of the animation (0 - 1) (Grasshopper Trigger needed)",
+        "direction": "InputParam",
+        "index": 4,
+        "name": "Animation Speed"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not the animation will be reset (False = 0, True = 1) (Grasshopper Trigger needed)",
+        "direction": "InputParam",
+        "index": 5,
+        "name": "Animation Reset"
+      },
+      {
+        "description": "Printer model at a given position of the printing procedure",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printer Model"
+      }
+    ],
+    "scriptCount": 1,
+    "slug": "termite-display-simulation",
+    "types": {
+      "Animation Reset": 1,
+      "Animation Speed": 1,
+      "Boolean": 2,
+      "Brep": 2,
+      "Brep | Curve": 2,
+      "Cap Holes Ex": 1,
+      "Clean Tree": 3,
+      "Colour Swatch": 1,
+      "Construct Point": 1,
+      "Cull Index": 1,
+      "Cull Pattern": 10,
+      "Curve": 7,
+      "Custom Preview": 1,
+      "Cylinder": 1,
+      "Deconstruct": 3,
+      "Dispatch": 2,
+      "Division": 1,
+      "End Points": 1,
+      "Equality": 1,
+      "Evaluate Curve": 1,
+      "Flip Matrix": 1,
+      "Geometry": 9,
+      "Group": 28,
+      "Improved Data Rec": 1,
+      "Includes": 1,
+      "Insert Items": 1,
+      "Integer": 1,
+      "Interpolate": 1,
+      "Larger Than": 1,
+      "Line": 3,
+      "List Item": 8,
+      "Mesh": 4,
+      "Move": 11,
+      "Multiplication": 1,
+      "Null Item": 2,
+      "Number": 2,
+      "Panel": 17,
+      "Pick'n'Choose": 2,
+      "Pipe": 2,
+      "Plane Normal": 1,
+      "Point": 8,
+      "Point In Brep": 1,
+      "Printer Model": 2,
+      "Rotate": 5,
+      "Shatter": 1,
+      "Simulation Position": 1,
+      "Simulation Type": 1,
+      "Sketch": 1,
+      "Sort List": 2,
+      "Sphere": 2,
+      "Stream Filter": 8,
+      "Targets": 1,
+      "Unit Z": 1,
+      "Vector 2Pt": 6
+    }
+  },
+  {
+    "name": "Termite Main G-code Generator",
+    "objectCount": 1884,
+    "params": [
+      {
+        "description": "Termite is expecting curves or lines as input of printing paths",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Termite is expecting points as input for optional pause points for the printer to pause until manual interaction. Termite will use the G-code command M0 to trigger the pause",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Pause Points (Optional)"
+      },
+      {
+        "description": "Termite is expecting an integer choosing which printer to work with (WASP 40100 LDM half = 0, WASP 40100 LDM Full = 1, Delta WASP 2040 Clay = 2, Shapelab Argos 140200 = 3, Other = 4)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Printer Model"
+      },
+      {
+        "description": "Termite is expecting a number defining the diameter in mm of which nozzle size to work with. This value will not affect the extrusion factor and is only used to estimate the material consumption, compute crossings, and display the material thickness (0.1 - 50)",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Nozzle Diameter"
+      },
+      {
+        "description": "Termite is expecting an integer defining the amount of priming paths around the object(s)",
+        "direction": "InputParam",
+        "index": 4,
+        "name": "Priming Paths"
+      },
+      {
+        "description": "Termite is expecting a number in mm defining the height of the first layer (0 - 1000)",
+        "direction": "InputParam",
+        "index": 5,
+        "name": "First Layer Height"
+      },
+      {
+        "description": "Termite is expecting a number defining the amount of material that is being extruded before each printing path (-100 - 100)",
+        "direction": "InputParam",
+        "index": 6,
+        "name": "Pre Fill Extrusion"
+      },
+      {
+        "description": "Termite is expecting a number defining the amount of material that is being extruded for printing paths on a Rhino Layer called \"Medium\" (0.0 - 10.0) (Default Value = 1)",
+        "direction": "InputParam",
+        "index": 7,
+        "name": "\"Medium\" Extrusion"
+      },
+      {
+        "description": "Termite is expecting a number defining the speed of the printing paths on a Rhino Layer called \"Default\" in mm per minute (100 - 20000)",
+        "direction": "InputParam",
+        "index": 8,
+        "name": "\"Default\" Speed"
+      },
+      {
+        "description": "Termite is expecting a number defining the amount of material that is being extruded for printing paths on a Rhino Layer called \"Travel\" (0.0 - 10.0) (Default Value = 0)",
+        "direction": "InputParam",
+        "index": 9,
+        "name": "\"Travel\" Extrusion"
+      },
+      {
+        "description": "Termite is expecting a number defining the speed of travel paths in mm per minute (100 - 20000)",
+        "direction": "InputParam",
+        "index": 10,
+        "name": "\"Travel\" Speed"
+      },
+      {
+        "description": "Termite is expecting a number defining the height of Retraction in mm before and after each printing path (0 - 1000)",
+        "direction": "InputParam",
+        "index": 11,
+        "name": "Retraction Height"
+      },
+      {
+        "description": "Termite is expecting a number defining the speed of Retraction in mm per minute (100 - 20000)",
+        "direction": "InputParam",
+        "index": 12,
+        "name": "Retraction Speed"
+      },
+      {
+        "description": "Termite is expecting a number defining the safe start length in mm of each printing path (0 - 100)",
+        "direction": "InputParam",
+        "index": 13,
+        "name": "Safe Start Length"
+      },
+      {
+        "description": "Termite is expecting a number defining the safe starting speed of each printing path in mm per minute (100 - 20000)",
+        "direction": "InputParam",
+        "index": 14,
+        "name": "Safe Start Speed"
+      },
+      {
+        "description": "Termite is expecting a number defining the length of a Safe End movemente in mm after each printing path (0 - 100)",
+        "direction": "InputParam",
+        "index": 15,
+        "name": "Safe End Length"
+      },
+      {
+        "description": "Termite is expecting a number defining the speed of a Safe End movemente in mm per minute (100 - 20000)",
+        "direction": "InputParam",
+        "index": 16,
+        "name": "Safe End Speed"
+      },
+      {
+        "description": "Termite is expecting a number defining the extrusion multiplication factor applied when crossing a printed path. For each intersection (including self-intersections) of printing paths within the same XY plane, the extrusion of a segment with a length equal to the nozzle diameter is reduced for all subsequent paths crossing that intersection, in order to prevent material buildup. Intersections occurring at start points, end points, or seam points of subsequent paths are excluded. Set the value to 1 to disable this feature (0.0-10.0)",
+        "direction": "InputParam",
+        "index": 17,
+        "name": "Crossing Extrusion Factor"
+      },
+      {
+        "description": "Termite is expecting a number defining the speed multiplication factor applied when crossing a printed path. For each intersection (including self-intersections) of printing paths within the same XY plane, the speed of a segment with a length equal to the nozzle diameter is multiplied for all subsequent paths crossing that intersection, in order to prevent material buildup. Intersections occurring at start points, end points, or seam points of subsequent paths are excluded. Set the value to 1 to disable this feature (0.0-10.0)",
+        "direction": "InputParam",
+        "index": 18,
+        "name": "Crossing Speed Factor"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether printing parameters such as Extrusion and Speed are organized by the printing path's Rhino layer or values of \"medium\" should be taken for all paths (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 19,
+        "name": "Read Multi Layer Names"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not it will automatically attempt to join adjacent paths, even if placed on different layers, while retaining the respective printing settings from each layer. If necessary travel paths can be added to connect and thereby sort printing paths. (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 20,
+        "name": "Join Multi Layer Paths"
+      },
+      {
+        "description": "Termite is expecting a number defining the amount of material that is being extruded for printing paths on a Rhino Layer called \"Slow\" (0.0 - 10.0) (Default Value = 1)",
+        "direction": "InputParam",
+        "index": 21,
+        "name": "\"Slow\" Extrusion"
+      },
+      {
+        "description": "Termite is expecting a number defining the speed of the printing paths on a Rhino Layer called \"Slow\" in mm per minute (100 - 20000)",
+        "direction": "InputParam",
+        "index": 22,
+        "name": "\"Slow\" Speed"
+      },
+      {
+        "description": "Termite is expecting a number defining the amount of material that is being extruded for printing paths on a Rhino Layer called \"Fast\" (0.0 - 10.0) (Default Value = 1)",
+        "direction": "InputParam",
+        "index": 23,
+        "name": "\"Fast\" Extrusion"
+      },
+      {
+        "description": "Termite is expecting a number defining the speed of the printing paths on a Rhino Layer called \"Fast\" in mm per minute (100 - 20000)",
+        "direction": "InputParam",
+        "index": 24,
+        "name": "\"Fast\" Speed"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not the material extrusion is displayed in the respective thickness in Rhino Viewport. It is important to note that enabling this feature for complex printing paths may result in increased computation time. The quality of the mesh is automatically defined by the complexity of the given printing paths (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 25,
+        "name": "Show Extrusion"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not the printer is displayed in Rhino Viewport (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 26,
+        "name": "Show Printer"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not various information is displayed in Rhino Viewport (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 27,
+        "name": "Show Information"
+      },
+      {
+        "description": "Termite is expecting a colour for displaying various information in R,G,B (0 - 255)",
+        "direction": "InputParam",
+        "index": 28,
+        "name": "Information Colour"
+      },
+      {
+        "description": "Termite is expecting a boolean value as a trigger to check for updates on Food4Rhino. Internet connection required (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 29,
+        "name": "Check For Updates"
+      },
+      {
+        "description": "Termite is expecting a boolean value as a trigger to save the G-code. Use the Grasshopper Button to trigger the event (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 30,
+        "name": "Save .gcode"
+      },
+      {
+        "description": "G-code as plain text ready to be executed by the printer",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "G-code"
+      },
+      {
+        "description": "A list of all targets, with a branch of data for each printing path. These targets are intended for use with a 6-axis robotic arm",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Targets"
+      },
+      {
+        "description": "A list of all extrusion values, with a branch of data for each printing path. These values are intended for use with other cnc machines such as 6-axis robotic arms",
+        "direction": "OutputParam",
+        "index": 2,
+        "name": "Extrusion Values"
+      },
+      {
+        "description": "A list of all speed values, with a branch of data for each printing path. These values are intended for use with other cnc machines such as 6-axis robotic arms",
+        "direction": "OutputParam",
+        "index": 3,
+        "name": "Speed Values"
+      },
+      {
+        "description": "Information summarising various printing parameters",
+        "direction": "OutputParam",
+        "index": 4,
+        "name": "Information"
+      }
+    ],
+    "scriptCount": 25,
+    "slug": "termite-main-g-code-generator",
+    "types": {
+      "\"Default\" Extrusion Factor": 1,
+      "\"Default\" Speed": 1,
+      "\"Fast\" Extrusion Factor": 1,
+      "\"Fast\" Speed": 1,
+      "\"Slow\" Extrusion Factor": 1,
+      "\"Slow\" Speed": 1,
+      "\"Travel\" Extrusion Factor": 1,
+      "\"Travel\" Speed": 1,
+      "Addition": 23,
+      "Boolean": 84,
+      "Boolean Toggle": 3,
+      "Bounds": 1,
+      "Brep": 2,
+      "C# Script": 2,
+      "Check For Updates": 1,
+      "Circle": 3,
+      "Clean Tree": 24,
+      "Closed": 5,
+      "Closest Point": 1,
+      "Closest Points": 2,
+      "Colour": 9,
+      "Colour Swatch": 3,
+      "Concatenate": 18,
+      "Construct Path": 1,
+      "Construct Point": 5,
+      "Construct Smooth Time": 1,
+      "Convex Hull": 1,
+      "Create Material": 1,
+      "Create Set": 4,
+      "Crossing Extrusion Factor": 1,
+      "Crossing Speed Factor": 1,
+      "Cull Index": 15,
+      "Cull Pattern": 64,
+      "Curve": 48,
+      "Curve Closest Point": 4,
+      "Curve Middle": 2,
+      "Curve To Polyline": 3,
+      "Curve | Curve": 2,
+      "Curve | Self": 1,
+      "Custom Preview": 6,
+      "Dash Pattern": 2,
+      "Data": 7,
+      "Deconstruct": 8,
+      "Deconstruct Path": 12,
+      "Deconstruct Vector": 3,
+      "Dispatch": 12,
+      "Distance": 2,
+      "Division": 8,
+      "Duplicate Data": 4,
+      "End Points": 15,
+      "Equality": 36,
+      "Evaluate Curve": 4,
+      "Explode": 4,
+      "Explode Tree": 3,
+      "Expression": 24,
+      "Extend Curve": 3,
+      "Extrusion Values": 1,
+      "First Layer Height": 1,
+      "G-code": 1,
+      "Geometry": 2,
+      "GhPython Script": 17,
+      "Graft Tree": 2,
+      "Group": 489,
+      "Includes": 11,
+      "Information": 1,
+      "Information Colour": 1,
+      "Insert Items": 16,
+      "Integer": 21,
+      "Item Index": 1,
+      "Join Curves": 5,
+      "Join Multi Layer Paths": 1,
+      "Larger Than": 10,
+      "Length": 8,
+      "Line": 3,
+      "List Item": 46,
+      "List Length": 40,
+      "Mass Addition": 30,
+      "Match Text": 9,
+      "Match Tree": 3,
+      "Member Index": 10,
+      "Merge": 18,
+      "Mesh": 1,
+      "Move": 7,
+      "Multiple Curves": 1,
+      "Multiplication": 15,
+      "Negative": 4,
+      "Nozzle Diameter": 1,
+      "Null Item": 7,
+      "Number": 132,
+      "Number Slider": 4,
+      "Object Details": 1,
+      "Offset Curve": 2,
+      "Panel": 160,
+      "Partition List": 2,
+      "Path Mapper": 20,
+      "Pause Points (Optional)": 1,
+      "Pick'n'Choose": 20,
+      "Point": 10,
+      "Point On Curve": 4,
+      "PolyLine": 2,
+      "Polyline Collapse": 3,
+      "Pre Fill Extrusion": 1,
+      "Priming Paths": 1,
+      "Printer Model": 1,
+      "Printing Paths": 1,
+      "Project": 1,
+      "Read Multi Layer Names": 1,
+      "Reduce": 1,
+      "Relative Differences": 1,
+      "Remap Numbers": 1,
+      "Replace Items": 21,
+      "Replace Nulls": 1,
+      "Replace Paths": 2,
+      "Replace Text": 1,
+      "Retraction Height": 1,
+      "Retraction Speed": 1,
+      "Reverse List": 3,
+      "Safe End Length": 1,
+      "Safe End Speed": 1,
+      "Safe Start Length": 1,
+      "Safe Start Speed": 1,
+      "Save .gcode": 1,
+      "Seam": 1,
+      "Series": 8,
+      "Set Intersection": 1,
+      "Shatter": 3,
+      "Shift List": 1,
+      "Show Extrusion": 1,
+      "Show Information": 1,
+      "Show Printer": 1,
+      "Sketch": 1,
+      "Smaller Than": 8,
+      "Sort Along Curve": 2,
+      "Sort List": 3,
+      "Speed Values": 1,
+      "Split List": 3,
+      "Stream Filter": 44,
+      "Stream Gate": 1,
+      "Subtraction": 21,
+      "Suirify": 9,
+      "Targets": 1,
+      "Text": 18,
+      "Text Case": 1,
+      "Text Length": 1,
+      "Text Split": 3,
+      "Text Tag": 2,
+      "Tree Statistics": 17,
+      "Trim Tree": 14,
+      "Unit Z": 5,
+      "VB Script": 6,
+      "Value List": 2,
+      "Vector 2Pt": 3,
+      "Vector Display Ex": 1,
+      "Weave": 16
+    }
+  },
+  {
+    "name": "Termite Sort Along Axis",
+    "objectCount": 167,
+    "params": [
+      {
+        "description": "Termite is expecting curves, lines or points as input for printing paths",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Termite is expecting an integer defining which axis to take for sorting (X = 0, Y = 1, Z = 2)",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "1st Axis"
+      },
+      {
+        "description": "Termite is expecting an optional integer defining which axis to take for consecutive sorting (X = 0, Y = 1, Z = 2, Off = 3)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "2nd Axis (Optional)"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not to group equal values along the first axis into individual branches (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Group Along 1st Axis"
+      },
+      {
+        "description": "Termite is expecting a number defining the spatial resolution in mm for grouping printing paths along the sorting axis. Values are rounded to the nearest resolution interval. Set to 0 to use the original values (0.0 - 50.0)",
+        "direction": "InputParam",
+        "index": 4,
+        "name": "Grouping Resolution"
+      },
+      {
+        "description": "Termite is expecting an integer whether the printing paths get sorted ascending or descending according to their value on a given axis (Ascending = 0, Descending = 1)",
+        "direction": "InputParam",
+        "index": 5,
+        "name": "Ordering"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not the numbering of the printing paths is displayed in Rhino Viewport (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 6,
+        "name": "Show Information"
+      },
+      {
+        "description": "Printing paths sorted along the given axis",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Printing path index map",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Indices"
+      },
+      {
+        "description": "Number of individual values along the first axis as integer",
+        "direction": "OutputParam",
+        "index": 2,
+        "name": "Layer Count"
+      },
+      {
+        "description": "Individual values along the first axis as numbers",
+        "direction": "OutputParam",
+        "index": 3,
+        "name": "Layer Values"
+      }
+    ],
+    "scriptCount": 0,
+    "slug": "termite-sort-along-axis",
+    "types": {
+      "1st Axis": 1,
+      "2nd Axis (Optional)": 1,
+      "Boolean": 10,
+      "Clean Tree": 10,
+      "Colour Swatch": 1,
+      "Concatenate": 1,
+      "Create Set": 1,
+      "Cull Pattern": 6,
+      "Curve": 4,
+      "Curve To Polyline": 3,
+      "Data": 2,
+      "Deconstruct": 3,
+      "Delete Consecutive": 1,
+      "End Points": 1,
+      "Equality": 2,
+      "Expression": 10,
+      "Geometry": 8,
+      "Group": 19,
+      "Group Along 1st Axis": 1,
+      "Grouping Resolution": 1,
+      "Indices": 1,
+      "Integer": 7,
+      "Larger Than": 1,
+      "Layer Count": 1,
+      "Layer Values": 1,
+      "List Item": 2,
+      "List Length": 2,
+      "Mass Addition": 3,
+      "Match Text": 2,
+      "Member Index": 2,
+      "Number": 3,
+      "Ordering": 1,
+      "Panel": 5,
+      "Point": 7,
+      "Polygon Center": 3,
+      "Printing Paths": 2,
+      "Replace Nulls": 4,
+      "Reverse List": 5,
+      "Series": 3,
+      "Show Information": 1,
+      "Sketch": 1,
+      "Sort List": 2,
+      "Stream Filter": 16,
+      "Text": 2,
+      "Text Tag": 1,
+      "Tree Statistics": 2,
+      "Weave": 1
+    }
+  },
+  {
+    "name": "Termite Sort Along Curve",
+    "objectCount": 48,
+    "params": [
+      {
+        "description": "Termite is expecting curves, lines or points as input for printing paths",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Contains a collection of generic curves",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Curve"
+      },
+      {
+        "description": "Termite is expecting an integer defining whether the printing paths get sorted ascending or descending by the distance from the given point (Ascending  = 0, Descending = 1)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Ordering"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not to display numbering of the printing paths (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Show Information"
+      },
+      {
+        "description": "Printing Paths sorted along a given curve",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Printing Path index map",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Indices"
+      }
+    ],
+    "scriptCount": 0,
+    "slug": "termite-sort-along-curve",
+    "types": {
+      "Boolean": 1,
+      "Clean Tree": 3,
+      "Colour Swatch": 1,
+      "Concatenate": 1,
+      "Cull Pattern": 1,
+      "Curve": 4,
+      "Curve To Polyline": 1,
+      "End Points": 1,
+      "Geometry": 3,
+      "Group": 3,
+      "Indices": 1,
+      "Integer": 2,
+      "Larger Than": 1,
+      "List Item": 1,
+      "List Length": 1,
+      "Ordering": 1,
+      "Panel": 2,
+      "Point": 3,
+      "Polygon Center": 1,
+      "Printing Paths": 2,
+      "Replace Nulls": 2,
+      "Reverse List": 2,
+      "Series": 2,
+      "Show Information": 1,
+      "Sketch": 1,
+      "Sort Along Curve": 1,
+      "Stream Filter": 3,
+      "Text Tag": 1,
+      "Tree Statistics": 1
+    }
+  },
+  {
+    "name": "Termite Sort by Distance",
+    "objectCount": 50,
+    "params": [
+      {
+        "description": "Termite is expecting curves, lines or points as input for printing paths",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Termite is expecting a point to measure the distance to each printing path in order to sort them",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Point"
+      },
+      {
+        "description": "Termite is expecting an integer defining whether the printing paths get sorted ascending or descending by the distance from the given point (Ascending  = 0, Descending = 1)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Ordering"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not to display numbering of the printing paths (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Show Information"
+      },
+      {
+        "description": "Printing Paths sorted by the distance from a given point",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Printing Path index map",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Indices"
+      }
+    ],
+    "scriptCount": 0,
+    "slug": "termite-sort-by-distance",
+    "types": {
+      "Boolean": 1,
+      "Clean Tree": 3,
+      "Colour Swatch": 1,
+      "Concatenate": 1,
+      "Cull Pattern": 1,
+      "Curve": 2,
+      "Curve To Polyline": 1,
+      "Distance": 1,
+      "End Points": 1,
+      "Geometry": 3,
+      "Group": 3,
+      "Indices": 1,
+      "Integer": 2,
+      "Larger Than": 1,
+      "List Length": 2,
+      "Ordering": 1,
+      "Panel": 2,
+      "Point": 5,
+      "Polygon Center": 1,
+      "Printing Paths": 2,
+      "Replace Nulls": 2,
+      "Reverse List": 2,
+      "Series": 3,
+      "Show Information": 1,
+      "Sketch": 1,
+      "Sort List": 1,
+      "Stream Filter": 3,
+      "Text Tag": 1,
+      "Tree Statistics": 1
+    }
+  },
+  {
+    "name": "Termite Sort by Length",
+    "objectCount": 36,
+    "params": [
+      {
+        "description": "Termite is expecting curves or lines as input for printing paths",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Termite is expecting an integer defining whether the printing paths get sorted ascending or descending by length (Ascending  = 0, Descending = 1)",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Ordering"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not to display numbering of the printing paths (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Show Information"
+      },
+      {
+        "description": "Printing Paths sorted by length",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Printing Path index map",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Indices"
+      }
+    ],
+    "scriptCount": 0,
+    "slug": "termite-sort-by-length",
+    "types": {
+      "Boolean": 1,
+      "Clean Tree": 1,
+      "Colour Swatch": 1,
+      "Concatenate": 1,
+      "Cull Pattern": 1,
+      "Curve": 2,
+      "End Points": 1,
+      "Group": 3,
+      "Indices": 1,
+      "Integer": 2,
+      "Larger Than": 1,
+      "Length": 1,
+      "List Length": 2,
+      "Ordering": 1,
+      "Panel": 2,
+      "Printing Paths": 2,
+      "Reverse List": 2,
+      "Series": 3,
+      "Show Information": 1,
+      "Sketch": 1,
+      "Sort List": 1,
+      "Stream Filter": 3,
+      "Text Tag": 1,
+      "Tree Statistics": 1
+    }
+  },
+  {
+    "name": "Termite Sort by Travel Path",
+    "objectCount": 114,
+    "params": [
+      {
+        "description": "Termite is expecting curves or lines as input for printing paths",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Termite is expecting an integer value specifying the travel path optimization algorithm to be used (Algorithm 0 = 0, Algorithm 1 = 1)",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Algorithm "
+      },
+      {
+        "description": "Termite is expecting a boolean value that defines whether the optimization algorithm is allowed to flip the direction of the initial input printing paths. Be aware that when set to \"true\" Rhino Layer information will be lost (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 2,
+        "name": "Allow Path Flipping"
+      },
+      {
+        "description": "Termite is expecting an integer specifying the maximum number of optimization iterations (1-100)",
+        "direction": "InputParam",
+        "index": 3,
+        "name": "Iterations"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not the numbering of the printing paths is displayed in Rhino Viewport (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 4,
+        "name": "Show Information"
+      },
+      {
+        "description": "Termite is expecting a boolean value whether or not the travel paths between each printing paths are displayed in Rhino Viewport (False = 0, True = 1)",
+        "direction": "InputParam",
+        "index": 5,
+        "name": "Show Travel Paths"
+      },
+      {
+        "description": "Printing Paths sorted by the shortest travel paths",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Total Travel Path Length",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Total Travel Path Length"
+      },
+      {
+        "description": "Printing Path index map",
+        "direction": "OutputParam",
+        "index": 2,
+        "name": "Indices"
+      }
+    ],
+    "scriptCount": 2,
+    "slug": "termite-sort-by-travel-path",
+    "types": {
+      "Addition": 1,
+      "Algorithm ": 1,
+      "Allow Path Flipping": 1,
+      "Boolean": 5,
+      "C# Script": 1,
+      "Clean Tree": 2,
+      "Colour Swatch": 1,
+      "Concatenate": 1,
+      "Cull Pattern": 2,
+      "Curve": 8,
+      "Dispatch": 2,
+      "End Points": 1,
+      "Equality": 1,
+      "Explode": 1,
+      "Geometry": 3,
+      "Group": 21,
+      "Indices": 1,
+      "Integer": 10,
+      "Iterations": 1,
+      "Length": 1,
+      "List Item": 3,
+      "List Length": 2,
+      "Mass Addition": 2,
+      "Match Text": 1,
+      "Null Item": 1,
+      "Number": 2,
+      "Number Slider": 1,
+      "Panel": 4,
+      "Pick'n'Choose": 1,
+      "Point": 2,
+      "Point On Curve": 1,
+      "PolyLine": 2,
+      "Printing Paths": 2,
+      "Python Script": 1,
+      "Replace Nulls": 1,
+      "Scribble": 1,
+      "Series": 2,
+      "Show Information": 1,
+      "Show Travel Paths": 1,
+      "Sketch": 1,
+      "Smaller Than": 1,
+      "Sort Along Curve": 1,
+      "Split Tree": 1,
+      "Stream Filter": 6,
+      "Stream Gate": 1,
+      "Subtraction": 1,
+      "Text": 1,
+      "Text Tag": 1,
+      "Total Travel Path Length": 1,
+      "Tree Statistics": 2,
+      "Weave": 1
+    }
+  },
+  {
+    "name": "Termite Sort Out by Length",
+    "objectCount": 21,
+    "params": [
+      {
+        "description": "Termite is expecting curves or lines as input for printing paths",
+        "direction": "InputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Termite expecting a number defining the minimum length in mm of a printing path",
+        "direction": "InputParam",
+        "index": 1,
+        "name": "Minimum Length"
+      },
+      {
+        "description": "Printed paths minus the ones sorted out by length",
+        "direction": "OutputParam",
+        "index": 0,
+        "name": "Printing Paths"
+      },
+      {
+        "description": "Count of paths being sorted out by length",
+        "direction": "OutputParam",
+        "index": 1,
+        "name": "Reduction Count"
+      }
+    ],
+    "scriptCount": 1,
+    "slug": "termite-sort-out-by-length",
+    "types": {
+      "Boolean": 1,
+      "Clean Tree": 1,
+      "Cull Pattern": 2,
+      "Curve": 2,
+      "Geometry": 1,
+      "GhPython Script": 1,
+      "Group": 1,
+      "Integer": 1,
+      "Larger Than": 1,
+      "Length": 1,
+      "Mass Addition": 1,
+      "Minimum Length": 1,
+      "Number": 1,
+      "Panel": 2,
+      "Printing Paths": 2,
+      "Reduction Count": 1,
+      "Sketch": 1
+    }
+  }
+]
